@@ -6,11 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hesn_elmuslim/cubit/home/home_cubit.dart';
 import 'package:hesn_elmuslim/view/resources/color_manager.dart';
-import 'package:hesn_elmuslim/view/screens/duaa/duaa_screen.dart';
 import 'package:hesn_elmuslim/view/widgets/app_bar/app_bar_custom.dart';
 import '../../../cubit/home/home_state.dart';
 import '../../../model/duaa/duaaModel.dart';
-import '../../widgets/component.dart';
 import '../../widgets/scaffold_custom/scaffold_custom.dart';
 import '../../widgets/text_custom/text_custom.dart';
 

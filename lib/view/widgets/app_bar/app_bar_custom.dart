@@ -25,22 +25,41 @@ appBarCustom(
       statusBarIconBrightness: Brightness.dark,
       statusBarColor: Colors.transparent,
     ),
-    leading: IconButton(
-      onPressed: () {
-        onPressed == null ? null : onPressed!();
-        // Navigator.pop(context);
-      },
-      icon: Icon(
-        iconData,
-        color: ColorManager.primary,
+    leading: Container(
+      margin: const EdgeInsets.all( 4),
+      padding: EdgeInsets.all(6.sp),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        color: ColorManager.prerequisiteCardColor  ,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey[200]!,
+            spreadRadius: 2,
+            blurRadius: 3,
+            offset: const Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      ),
+      child: IconButton(
+        onPressed: () {
+          onPressed == null ? null : onPressed!();
+          // Navigator.pop(context);
+        },
+        icon: Icon(
+          iconData,
+          color: ColorManager.primary,
+        ),
       ),
     ),
-    title: textCustom(
+    title:
+    textCustom(
+      textAlign: TextAlign.center,
       context: context, text: leading!,
       fontSize: 22.sp,
       fontWeight: FontWeight.bold,
       // color: Colors.black,
-    ),
+    )
+    ,
     actions: actions,
   );
 }

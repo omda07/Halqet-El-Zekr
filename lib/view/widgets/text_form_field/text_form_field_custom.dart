@@ -109,7 +109,7 @@ maxLines:maxLines??1,
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
-          borderSide:  BorderSide(
+          borderSide:  const BorderSide(
             color: ColorManager.primary,
             width: 2,
           ),

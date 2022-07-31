@@ -41,7 +41,7 @@ class CircularPercentIndicatorCustom extends StatelessWidget {
             fontSize: 50.sp,
             fontWeight: FontWeight.w500,),
           Padding(
-            padding: EdgeInsets.only(right: 65.0),
+            padding: const EdgeInsets.only(right: 65.0),
             child: textCustom(
                 context: context,
                 text: '/$count',

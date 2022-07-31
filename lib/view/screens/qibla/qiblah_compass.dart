@@ -11,11 +11,13 @@ import 'loading_indicator.dart';
 import 'location_error_widget.dart';
 
 class QiblahCompass extends StatefulWidget {
+  const QiblahCompass({Key? key}) : super(key: key);
+
   @override
-  _QiblahCompassState createState() => _QiblahCompassState();
+  QiblahCompassState createState() => QiblahCompassState();
 }
 
-class _QiblahCompassState extends State<QiblahCompass> {
+class QiblahCompassState extends State<QiblahCompass> {
   final _locationStreamController =
       StreamController<LocationStatus>.broadcast();
 
@@ -64,7 +66,7 @@ class _QiblahCompassState extends State<QiblahCompass> {
             }
           } else {
             return LocationErrorWidget(
-              error: "Please enable Location service",
+              error: "من فضلك شغل الموقع",
               callback: _checkLocationStatus,
             );
           }
@@ -101,6 +103,8 @@ class QiblahCompassWidget extends StatelessWidget {
     height: 300,
     alignment: Alignment.center,
   );
+
+   QiblahCompassWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

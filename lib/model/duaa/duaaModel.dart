@@ -1,5 +1,4 @@
 
-
 import 'azkar_list.dart';
 
 class AzkarModel {

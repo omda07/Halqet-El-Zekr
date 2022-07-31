@@ -27,7 +27,7 @@ class QiblaScreen extends StatelessWidget {
           }
 
           if (snapshot.data!) {
-            return QiblahCompass();
+            return const QiblahCompass();
           } else {
             return const CircularProgressIndicator();
           }
