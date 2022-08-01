@@ -4,7 +4,7 @@ import 'end_points.dart';
 
 class DioHelper{
   static late Dio dio;
-  static init(){
+  static init(String baseUrl){
     dio =Dio(
       BaseOptions(
         baseUrl: baseUrl,

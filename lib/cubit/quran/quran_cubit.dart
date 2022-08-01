@@ -13,7 +13,7 @@ class QuranCubit extends Cubit<QuranStates> {
 
   getQuran() {
     emit(GetQuranLoading());
-    DioHelper.getData(url: 'index.json').then((value) {
+    DioHelper.getData(url: 'cdn.jsdelivr.net/npm/quran-json@3.1.2/dist/chapters/index.json').then((value) {
       // quranSurah = QuranSurah.fromJson(value.data);
       // print(value.data);
       value.data.forEach((v) {
@@ -30,7 +30,7 @@ class QuranCubit extends Cubit<QuranStates> {
 
   getQuranSurah({required String id}) {
     emit(GetQuranSurahLoading());
-    DioHelper.getData(url: '$id.json').then((value) {
+    DioHelper.getData(url: 'cdn.jsdelivr.net/npm/quran-json@3.1.2/dist/chapters/$id.json').then((value) {
       quranSurah = QuranSurahModel.fromJson(value.data);
       print(quranSurah!.name);
 

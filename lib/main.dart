@@ -6,6 +6,7 @@ import 'package:hesn_elmuslim/cubit/home/home_cubit.dart';
 import 'package:hesn_elmuslim/cubit/quran/quran_cubit.dart';
 import 'package:hesn_elmuslim/view/screens/azkar/athkar_screen.dart';
 import 'package:hesn_elmuslim/view/screens/duaa/duaa_screen.dart';
+import 'package:hesn_elmuslim/view/screens/hadeth/hadeth_screen.dart';
 import 'package:hesn_elmuslim/view/screens/main_page.dart';
 import 'package:hesn_elmuslim/view/screens/pray_time/pray_screen.dart';
 import 'package:hesn_elmuslim/view/screens/qibla/qibla_screen.dart';
@@ -15,12 +16,14 @@ import 'package:hesn_elmuslim/view/screens/zakat/zakat_screen.dart';
 import 'package:hesn_elmuslim/view/styles/theme.dart';
 
 import 'cubit/cubit For Internet/internet_cubit.dart';
+import 'cubit/database/network/end_points.dart';
 import 'observer.dart';
 import 'view/screens/quran/quran_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  DioHelper.init();
+  await DioHelper.init(baseUrl);
+
   BlocOverrides.runZoned(
     () {
       // Use cubits...
@@ -53,10 +56,11 @@ class MyApp extends StatelessWidget {
             'DuaaScreen': (BuildContext context) => const DuaaScreen(),
             'zakat': (BuildContext context) => ZakatScreen(),
             'qibla': (BuildContext context) => QiblaScreen(),
-            'pray': (BuildContext context) => PrayTimeScreen(),
-            'quran': (BuildContext context) => QuranSurahScreen(),
+            'pray': (BuildContext context) => const PrayTimeScreen(),
+            'quran': (BuildContext context) => const QuranSurahScreen(),
             'quranOff': (BuildContext context) => QuranScreen(),
-            // 'hadeethCategoriesScreen': (BuildContext context) =>  const HadeethCategoriesScreen(),
+            'hadeth': (BuildContext context) => const HadethCategoriesScreen(),
+
           },
           builder: (context, widget) {
             return MediaQuery(
@@ -73,7 +77,7 @@ class MyApp extends StatelessWidget {
           theme: getApplicationTheme(),
           //Here The Theme.
 
-          home: MainPage(),
+          home: const MainPage(),
         ),
       ),
     );

@@ -109,7 +109,7 @@ class HomeScreen extends StatelessWidget {
                 buildItem(
                     label: 'الاحاديث النبوية',
                     url: 'assets/images/muslim.png',
-                    screen: 'HadeethCategoriesScreen',
+                    screen: 'hadeth',
                     context: context),
                 buildItem(
                     label: 'مواقيت الصلاة',
