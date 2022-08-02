@@ -54,7 +54,7 @@ class SelectedTasbehScreen extends StatelessWidget {
                           cubit.incrementCounter(counter: 99);
                         },
                         child: CircularPercentIndicatorCustom(
-                          radius: 120.0,
+                          radius: 120.0.r,
                           counter: cubit.count,
                           percent: cubit.percent,
                           count: int.parse(
@@ -72,10 +72,10 @@ class SelectedTasbehScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: ColorManager.primary),
+                              color: ColorManager.cardColor),
                           child: const Icon(
                             Icons.refresh,
-                            color: Colors.white,
+                            color: ColorManager.primary,
                           ),
                         ),
                       ),

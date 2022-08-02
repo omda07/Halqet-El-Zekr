@@ -7,6 +7,7 @@ import 'package:hesn_elmuslim/cubit/quran/quran_state.dart';
 import 'package:hesn_elmuslim/view/resources/color_manager.dart';
 import 'package:hesn_elmuslim/view/screens/quran/surah_screen.dart';
 import 'package:hesn_elmuslim/view/widgets/app_bar/app_bar_custom.dart';
+import 'package:hesn_elmuslim/view/widgets/component.dart';
 
 import '../../widgets/scaffold_custom/scaffold_custom.dart';
 import '../../widgets/text_custom/text_custom.dart';
@@ -31,6 +32,7 @@ class QuranSurahScreen extends StatelessWidget {
             var cubit = QuranCubit.get(context);
 
             return SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
                   Padding(
@@ -63,30 +65,32 @@ class QuranSurahScreen extends StatelessWidget {
                         itemExtent: 80,
                         itemBuilder: (BuildContext context, int index) =>
                             Container(
-                              width: double.infinity,
+                              // width: double.infinity,
                               margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 16,
                                 vertical: 0,
                               ),
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16.0),
+                                borderRadius: BorderRadius.circular(16.0.r),
                                 boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey[300]!,
-                                    offset: const Offset(0.6, 1.2), //(x,y)
-                                    blurRadius: 6.0,
+                                  BoxShadow(spreadRadius: 1,
+                                    color: Colors.grey[200]!,
+                                    offset: const Offset(0.0, 3), //(x,y)
+                                    blurRadius: 2.0,
                                   ),
                                 ],
                                 color: ColorManager.cardColor,
                               ),
                               child: ListTile(
                                   title: textCustom(
+                                    height: 0.0,
                                     context: context,
                                     text: cubit.list[index]['name'],
                                     fontSize: 20.sp,
                                   ),
                                   subtitle: textCustom(
+                                    height: 0.0,
                                       context: context,
                                       text: cubit.list[index]
                                           ['transliteration'],
@@ -124,12 +128,10 @@ class QuranSurahScreen extends StatelessWidget {
                                   ),
                                   onTap: () {
                                     /// Push to Quran view ([int pages] represent surah page(reversed index))
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => SurahScreen(
-                                                id: cubit.list[index]['id']
-                                                    .toString())));
+                                    navigator(context, SurahScreen(
+                                        id: cubit.list[index]['id']
+                                            .toString()));
+
                                   }),
                             ),
                       );

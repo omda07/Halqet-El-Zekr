@@ -210,6 +210,7 @@ class HomeCubit extends Cubit<HomeStates> {
       case 'isha':
         return prayerTimes!.timeForPrayer(Prayer.isha);
       case 'none':
+        return null;
       default:
         return null;
 

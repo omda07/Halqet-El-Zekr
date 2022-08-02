@@ -24,17 +24,17 @@ class HadethInfoScreen extends StatelessWidget {
         builder: (context, state) {
           var cubit = HadethCubit.get(context);
 
-          return ConditionalBuilder(
-            condition: cubit.hadethInfoModel != null,
-            builder: (context) {
-              return scaffoldCustom(
-                appBarCustom: appBarCustom(
-                    context: context,
-                    leading: cubit.hadethInfoModel!.title!,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    }),
-                body: SingleChildScrollView(
+          return scaffoldCustom(
+            appBarCustom: appBarCustom(
+                context: context,
+                leading:cubit.hadethInfoModel != null? cubit.hadethInfoModel!.title! :'',
+                onPressed: () {
+                  Navigator.pop(context);
+                }),
+            body: ConditionalBuilder(
+              condition: cubit.hadethInfoModel != null,
+              builder: (context) {
+                return SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   child: Padding(
                     padding: EdgeInsets.all(20.0.sp),
@@ -50,7 +50,7 @@ class HadethInfoScreen extends StatelessWidget {
                             text: 'الحديث',
                             fontSize: 24.sp,
                             color: ColorManager.grey),
-SurahCustom(text:cubit.hadethInfoModel!.hadeeth! ,),
+                        SurahCustom(text:cubit.hadethInfoModel!.hadeeth! ,),
 
                         Divider(
                           height: 20.h,
@@ -138,10 +138,10 @@ SurahCustom(text:cubit.hadethInfoModel!.hadeeth! ,),
                         ),
                         textCustom(
                             decoration: TextDecoration.underline,
-                          textAlign: TextAlign.center,
-                          context: context,
-                          text: 'معاني الكلمات',
-                          fontSize: 24.sp,
+                            textAlign: TextAlign.center,
+                            context: context,
+                            text: 'معاني الكلمات',
+                            fontSize: 24.sp,
                             color: ColorManager.grey
                         ),
 
@@ -149,14 +149,14 @@ SurahCustom(text:cubit.hadethInfoModel!.hadeeth! ,),
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: List.generate(
                             cubit.hadethInfoModel!.wordsMeanings!.length,
-                            (index) => Column(
+                                (index) => Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 textCustom(
                                   textAlign: TextAlign.center,
                                   context: context,
                                   text:
-                                      '${cubit.hadethInfoModel!.wordsMeanings![index].word!} : ',
+                                  '${cubit.hadethInfoModel!.wordsMeanings![index].word!} : ',
                                   fontSize: 22.sp,
 
                                 ),
@@ -179,10 +179,10 @@ SurahCustom(text:cubit.hadethInfoModel!.hadeeth! ,),
                         ),
                         textCustom(
                             decoration: TextDecoration.underline,
-                          textAlign: TextAlign.center,
-                          context: context,
-                          text: 'المرجع',
-                          fontSize: 24.sp,
+                            textAlign: TextAlign.center,
+                            context: context,
+                            text: 'المرجع',
+                            fontSize: 24.sp,
                             color: ColorManager.grey
                         ),
 
@@ -196,11 +196,11 @@ SurahCustom(text:cubit.hadethInfoModel!.hadeeth! ,),
                       ],
                     ),
                   ),
-                ),
-              );
-            },
-            fallback: (context) => const Center(
-              child: CircularProgressIndicator(),
+                );
+              },
+              fallback: (context) => const Center(
+                child: CircularProgressIndicator(),
+              ),
             ),
           );
         },
@@ -208,3 +208,7 @@ SurahCustom(text:cubit.hadethInfoModel!.hadeeth! ,),
     );
   }
 }
+
+
+
+

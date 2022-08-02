@@ -13,7 +13,7 @@ import '../../widgets/text_custom/text_custom.dart';
 class SurahScreen extends StatelessWidget {
   final String id;
 
-  SurahScreen({Key? key, required this.id}) : super(key: key);
+  const SurahScreen({Key? key, required this.id}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +24,17 @@ class SurahScreen extends StatelessWidget {
         builder: (context, state) {
           var cubit = QuranCubit.get(context);
 
-          return ConditionalBuilder(
-            condition: cubit.quranSurah != null,
-            builder: (context) {
-              return scaffoldCustom(
-                appBarCustom: appBarCustom(
-                    context: context,
-                    leading: cubit.quranSurah!.name,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    }),
-                body: Padding(
+          return scaffoldCustom(
+            appBarCustom: appBarCustom(
+                context: context,
+                leading:cubit.quranSurah != null ? cubit.quranSurah!.name : '',
+                onPressed: () {
+                  Navigator.pop(context);
+                }),
+            body:ConditionalBuilder(
+              condition: cubit.quranSurah != null,
+              builder: (context) {
+                return  Padding(
                   padding: EdgeInsets.all(20.0.sp),
                   child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
@@ -83,12 +83,9 @@ class SurahScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                ),
-              );
-            },
-            fallback: (context) => const Center(
+                );}, fallback: (BuildContext context) =>const Center(
               child: CircularProgressIndicator(),
-            ),
+            ),),
           );
         },
       ),

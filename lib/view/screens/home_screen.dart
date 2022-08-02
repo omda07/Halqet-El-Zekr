@@ -6,6 +6,7 @@ import 'package:hesn_elmuslim/cubit/home/home_cubit.dart';
 import 'package:hesn_elmuslim/cubit/home/home_state.dart';
 import 'package:hesn_elmuslim/view/resources/color_manager.dart';
 import 'package:hijri/hijri_calendar.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import '../widgets/text_custom/text_custom.dart';
 
@@ -16,6 +17,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HijriCalendar.setLocal('ar');
+    initializeDateFormatting('ar_EG');
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Column(
@@ -51,15 +53,15 @@ class HomeScreen extends StatelessWidget {
                                 textCustom(
                                   height: 0,
                                     context: context,
-                                    text: '${cubit.getPrayerName()}',
-                                    color: ColorManager.black,
+                                    text: cubit.getPrayerName() != null ?'${cubit.getPrayerName()}':'',
+                                    color: ColorManager.primary,
                                     fontSize: 18.sp),
                                 textCustom(
                                   height: 0,
                                     context: context,
-                                    text: DateFormat.jm()
-                                        .format(cubit.getPrayer()!),
-                                    color: ColorManager.black,
+                                    text:cubit.getPrayer() != null  ? DateFormat.jm('ar_EG')
+                                        .format(cubit.getPrayer()!) : '',
+                                    color: ColorManager.primary,
                                     fontSize: 20.sp),
                               ],
                             );

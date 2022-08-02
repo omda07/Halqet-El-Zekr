@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hesn_elmuslim/view/widgets/text_custom/text_custom.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
+import '../resources/color_manager.dart';
+
 class CircularPercentIndicatorCustom extends StatelessWidget {
   double percent;
   double? radius;
@@ -28,8 +30,8 @@ class CircularPercentIndicatorCustom extends StatelessWidget {
       radius: radius ?? 80,
       lineWidth: 5.0,
       percent: percent,
-      animation: false,
-      animateFromLastPercent: false,
+      animation: true,
+      animateFromLastPercent: true,
 
       circularStrokeCap: CircularStrokeCap.round,
       center: Column(
@@ -51,7 +53,7 @@ class CircularPercentIndicatorCustom extends StatelessWidget {
         ],
       ),
       // onAnimationEnd:1,
-      progressColor: Colors.green,
+      progressColor: ColorManager.primary,
     );
   }
 }

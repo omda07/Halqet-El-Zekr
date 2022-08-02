@@ -28,28 +28,28 @@ class HadethDetailsScreen extends StatelessWidget {
         builder: (context, state) {
           var cubit = HadethCubit.get(context);
 
-          return ConditionalBuilder(
-            condition: cubit.hadethDetailsModel != null,
-            builder: (context) {
-              return scaffoldCustom(
-                appBarCustom: appBarCustom(
-                    context: context,
-                    leading: name,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    }),
-                body: Padding(
+          return scaffoldCustom(
+            appBarCustom: appBarCustom(
+                context: context,
+                leading: name ,
+                onPressed: () {
+                  Navigator.pop(context);
+                }),
+            body: ConditionalBuilder(
+              condition: cubit.hadethDetailsModel != null,
+              builder: (context) {
+                return Padding(
                   padding: EdgeInsets.all(20.0.sp),
                   child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     itemCount: cubit.hadethDetailsModel!.data!.length,
-                    // itemExtent: 100.0,
+// itemExtent: 100.0,
                     itemBuilder: (BuildContext context, int index) => Padding(
                       padding: EdgeInsets.symmetric(vertical: 8.0.sp),
                       child: Column(
                         textDirection: TextDirection.rtl,
                         children: [
-                       
+
                           SurahCustom(widget:Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -95,11 +95,11 @@ class HadethDetailsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                ),
-              );
-            },
-            fallback: (context) => const Center(
-              child: CircularProgressIndicator(),
+                );
+              },
+              fallback: (context) => const Center(
+                child: CircularProgressIndicator(),
+              ),
             ),
           );
         },
@@ -107,3 +107,6 @@ class HadethDetailsScreen extends StatelessWidget {
     );
   }
 }
+
+
+

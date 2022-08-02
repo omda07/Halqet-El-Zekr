@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
             'DuaaScreen': (BuildContext context) => const DuaaScreen(),
             'zakat': (BuildContext context) => ZakatScreen(),
             'qibla': (BuildContext context) => QiblaScreen(),
-            'pray': (BuildContext context) =>  PrayTimeScreen(),
+            'pray': (BuildContext context) =>  const PrayTimeScreen(),
             'quran': (BuildContext context) => const QuranSurahScreen(),
             'quranOff': (BuildContext context) => QuranScreen(),
             'hadeth': (BuildContext context) => const HadethCategoriesScreen(),

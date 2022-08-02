@@ -7,6 +7,7 @@ import 'package:hesn_elmuslim/cubit/home/home_cubit.dart';
 import 'package:hesn_elmuslim/cubit/home/home_state.dart';
 import 'package:hesn_elmuslim/view/widgets/app_bar/app_bar_custom.dart';
 import 'package:hesn_elmuslim/view/widgets/text_custom/text_custom.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
 import '../../resources/color_manager.dart';
@@ -16,6 +17,7 @@ class PrayTimeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting('ar_EG');
     return Scaffold(
       appBar: appBarCustom(
           context: context,
@@ -49,56 +51,56 @@ class PrayTimeScreen extends StatelessWidget {
                               shape: BoxShape.circle),
                           width: 200.0.w,
                           isLive: true,
-                          hourHandColor: ColorManager.black,
-                          minuteHandColor: ColorManager.black,
+                          hourHandColor: ColorManager.primary,
+                          minuteHandColor: ColorManager.primary,
                           showSecondHand: true,
-                          numberColor: ColorManager.black,
+                          numberColor: ColorManager.primary,secondHandColor: ColorManager.kGreenColor,
                           showNumbers: true,
                           showAllNumbers: true,
                           textScaleFactor: 2.0,
                           showTicks: true,
-                          showDigitalClock: true,
+                          showDigitalClock: false,
                           datetime: DateTime.now(),
                         ),
                         row(
                           context: context,
                           text: 'الفجر',
-                          time: DateFormat.jm()
+                          time: DateFormat.jm('ar_EG')
                               .format(cubit.prayerTimes!.fajr)
                               .toString(),
                         ),
                         row(
                           context: context,
                           text: 'الشروق',
-                          time: DateFormat.jm()
+                          time: DateFormat.jm('ar_EG')
                               .format(cubit.prayerTimes!.sunrise)
                               .toString(),
                         ),
                         row(
                           context: context,
                           text: 'الظهر',
-                          time: DateFormat.jm()
+                          time: DateFormat.jm('ar_EG')
                               .format(cubit.prayerTimes!.dhuhr)
                               .toString(),
                         ),
                         row(
                           context: context,
                           text: 'العصر',
-                          time: DateFormat.jm()
+                          time: DateFormat.jm('ar_EG')
                               .format(cubit.prayerTimes!.asr)
                               .toString(),
                         ),
                         row(
                           context: context,
                           text: 'المغرب',
-                          time: DateFormat.jm()
+                          time: DateFormat.jm('ar_EG')
                               .format(cubit.prayerTimes!.maghrib)
                               .toString(),
                         ),
                         row(
                           context: context,
                           text: 'العشاء',
-                          time: DateFormat.jm()
+                          time: DateFormat.jm('ar_EG')
                               .format(cubit.prayerTimes!.isha)
                               .toString(),
                         ),
