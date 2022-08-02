@@ -1,3 +1,4 @@
+import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hesn_elmuslim/view/widgets/text_custom/text_custom.dart';
@@ -20,7 +21,7 @@ class CircularPercentIndicatorCustom extends StatelessWidget {
     this.count,
     Key? key,
   }) : super(key: key);
-
+  ArabicNumbers arabicNumber = ArabicNumbers();
   @override
   Widget build(BuildContext context) {
     return CircularPercentIndicator(
@@ -37,14 +38,14 @@ class CircularPercentIndicatorCustom extends StatelessWidget {
         children: [
           textCustom(
               context: context,
-              text: '$counter',
+              text:arabicNumber.convert('$counter') ,
             fontSize: 50.sp,
             fontWeight: FontWeight.w500,),
           Padding(
             padding: const EdgeInsets.only(right: 65.0),
             child: textCustom(
                 context: context,
-                text: '/$count',
+                text: '/${arabicNumber.convert('$count')}',
                 fontSize: 16.sp,),
           ),
         ],

@@ -1,4 +1,4 @@
-import 'package:adhan/adhan.dart';
+import 'package:analog_clock/analog_clock.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,15 +9,20 @@ import 'package:hesn_elmuslim/view/widgets/app_bar/app_bar_custom.dart';
 import 'package:hesn_elmuslim/view/widgets/text_custom/text_custom.dart';
 import 'package:intl/intl.dart';
 
+import '../../resources/color_manager.dart';
+
 class PrayTimeScreen extends StatelessWidget {
   const PrayTimeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarCustom(context: context, leading: 'مواقيت الصلاة',onPressed: (){
-        Navigator.pop(context);
-      }),
+      appBar: appBarCustom(
+          context: context,
+          leading: 'مواقيت الصلاة',
+          onPressed: () {
+            Navigator.pop(context);
+          }),
       body: BlocProvider(
         create: (context) => HomeCubit()..determinePosition(),
         child: BlocConsumer<HomeCubit, HomeStates>(
@@ -26,112 +31,79 @@ class PrayTimeScreen extends StatelessWidget {
             var cubit = HomeCubit.get(context);
 
             return ConditionalBuilder(
-              condition: cubit.locationData != null ,
+              condition: cubit.locationData != null,
               builder: (context) {
-                final myCoordinates = Coordinates(
-                  cubit.locationData!.latitude!,
-                  cubit.locationData!
-                      .longitude!,); // Replace with your own location lat, lng.
-                final params = CalculationMethod.egyptian.getParameters();
-                params.madhab = Madhab.shafi;
-                final prayerTimes = PrayerTimes.today(myCoordinates, params);
                 return Padding(
-                  padding: EdgeInsets.all(20.sp),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          textCustom(
-                            text: 'الفجر',
-                            context: context,
-                            fontSize: 24,
-                          ),
-                          textCustom(
-                            text: DateFormat.jm().format(prayerTimes.fajr),
-                            context: context,
-                            fontSize: 24,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          textCustom(
-                            text: 'الشروق',
-                            context: context,
-                            fontSize: 24,
-                          ),
-                          textCustom(
-                            text:  DateFormat.jm().format(prayerTimes.sunrise),
-                            context: context,
-                            fontSize: 24,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          textCustom(
-                            text: 'الظهر',
-                            context: context,
-                            fontSize: 24,
-                          ),
-                          textCustom(
-                            text: DateFormat.jm().format(prayerTimes.dhuhr),
-                            context: context,
-                            fontSize: 24,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          textCustom(
-                            text: 'العصر',
-                            context: context,
-                            fontSize: 24,
-                          ),
-                          textCustom(
-                            text:DateFormat.jm().format(prayerTimes.asr),
-                            context: context,
-                            fontSize: 24,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          textCustom(
-                            text: 'المغرب',
-                            context: context,
-                            fontSize: 24,
-                          ),
-                          textCustom(
-                            text: DateFormat.jm().format(prayerTimes.maghrib),
-                            context: context,
-                            fontSize: 24,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          textCustom(
-                            text: 'العشاء',
-                            context: context,
-                            fontSize: 24,
-                          ),
-                          textCustom(
-                            text: DateFormat.jm().format(prayerTimes.isha),
-                            context: context,
-                            fontSize: 24,
-                          ),
-                        ],
-                      ),
-
-                    ],
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        AnalogClock(
+                          height: 200.h,
+                          decoration: const BoxDecoration(
+                              // border: Border.all(width: 2.0, color: Colors.black),
+                              color: ColorManager.cardColor,
+                              shape: BoxShape.circle),
+                          width: 200.0.w,
+                          isLive: true,
+                          hourHandColor: ColorManager.black,
+                          minuteHandColor: ColorManager.black,
+                          showSecondHand: true,
+                          numberColor: ColorManager.black,
+                          showNumbers: true,
+                          showAllNumbers: true,
+                          textScaleFactor: 2.0,
+                          showTicks: true,
+                          showDigitalClock: true,
+                          datetime: DateTime.now(),
+                        ),
+                        row(
+                          context: context,
+                          text: 'الفجر',
+                          time: DateFormat.jm()
+                              .format(cubit.prayerTimes!.fajr)
+                              .toString(),
+                        ),
+                        row(
+                          context: context,
+                          text: 'الشروق',
+                          time: DateFormat.jm()
+                              .format(cubit.prayerTimes!.sunrise)
+                              .toString(),
+                        ),
+                        row(
+                          context: context,
+                          text: 'الظهر',
+                          time: DateFormat.jm()
+                              .format(cubit.prayerTimes!.dhuhr)
+                              .toString(),
+                        ),
+                        row(
+                          context: context,
+                          text: 'العصر',
+                          time: DateFormat.jm()
+                              .format(cubit.prayerTimes!.asr)
+                              .toString(),
+                        ),
+                        row(
+                          context: context,
+                          text: 'المغرب',
+                          time: DateFormat.jm()
+                              .format(cubit.prayerTimes!.maghrib)
+                              .toString(),
+                        ),
+                        row(
+                          context: context,
+                          text: 'العشاء',
+                          time: DateFormat.jm()
+                              .format(cubit.prayerTimes!.isha)
+                              .toString(),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },
@@ -141,6 +113,50 @@ class PrayTimeScreen extends StatelessWidget {
             );
           },
         ),
+      ),
+    );
+  }
+
+  Widget row(
+      {required BuildContext context,
+      required String text,
+      required String time}) {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.only(
+        bottom: 12.h,
+      ),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 16,
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey[100]!,
+            offset: const Offset(0.0, 3.0), //(x,y)
+            blurRadius: 1.0,
+          ),
+        ],
+        color: ColorManager.cardColor,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          textCustom(
+            height: 0.0,
+            text: text,
+            context: context,
+            fontSize: 24,
+          ),
+          textCustom(
+            height: 0.0,
+            text: time,
+            context: context,
+            fontSize: 24,
+          ),
+        ],
       ),
     );
   }

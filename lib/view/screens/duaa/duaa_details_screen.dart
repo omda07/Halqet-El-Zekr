@@ -50,12 +50,12 @@ class DuaaDetailsScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16.0),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey[300]!,
+                          color: Colors.grey[200]!,
                           offset: const Offset(0.6, 1.2), //(x,y)
                           blurRadius: 6.0,
                         ),
                       ],
-                      color: Colors.white,
+                      color: ColorManager.cardColor,
                     ),
                     child: Column(
                       children: [

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:adhan/adhan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_share/flutter_share.dart';
@@ -7,7 +8,6 @@ import 'package:hesn_elmuslim/model/evening/azkar_evening_model.dart';
 import 'package:hesn_elmuslim/model/morning/azkar_morning_model.dart';
 import 'package:hesn_elmuslim/model/tasbeh/tasbeh_model.dart';
 import 'package:location/location.dart';
-
 
 class HomeCubit extends Cubit<HomeStates> {
   HomeCubit() : super(InitialHomeState());
@@ -22,7 +22,7 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(BottomNavBar());
   }
 
-  Future<void> share(String link,String title, String text) async {
+  Future<void> share(String link, String title, String text) async {
     await FlutterShare.share(
         title: 'title',
         text: text,
@@ -31,8 +31,8 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(Share());
   }
 
+  AzkarMoriningModel? azkarMoriningModel;
 
-AzkarMoriningModel? azkarMoriningModel;
   getAzkarMorning({required BuildContext context}) async {
     try {
       emit(GetAzkarLoading());
@@ -65,6 +65,7 @@ AzkarMoriningModel? azkarMoriningModel;
   }
 
   AzkarEveningModel? azkarEveningModel;
+
   getAzkarEvening({required BuildContext context}) async {
     try {
       emit(GetAzkarEveningLoading());
@@ -76,7 +77,6 @@ AzkarMoriningModel? azkarMoriningModel;
 
       azkarEveningModel = AzkarEveningModel.fromJson(mJson);
 
-
       print(azkarEveningModel!.evening);
       emit(GetAzkarEveningSuccess());
     } catch (e) {
@@ -86,6 +86,7 @@ AzkarMoriningModel? azkarMoriningModel;
   }
 
   TasbehModel? tasbehModel;
+
   getTasbeh({required BuildContext context}) async {
     try {
       emit(GetTasbehLoading());
@@ -97,7 +98,6 @@ AzkarMoriningModel? azkarMoriningModel;
 
       tasbehModel = TasbehModel.fromJson(mJson);
 
-
       print(tasbehModel!.tasbeh);
       emit(GetTasbehSuccess());
     } catch (e) {
@@ -106,49 +106,49 @@ AzkarMoriningModel? azkarMoriningModel;
     }
   }
 
+  int count = 0;
+  double percent = 0;
 
-  int count= 0;
-  double percent=0;
-
-  incrementCounter(
-      {required int counter}
-      ) {
-    late double constNumber=1/counter;
-    if(count<counter) {
+  incrementCounter({required int counter}) {
+    late double constNumber = 1 / counter;
+    if (count < counter) {
       count++;
-      percent = percent+constNumber;
+      percent = percent + constNumber;
       emit(GetPercent());
       //percent=percent2;
-    }else{
+    } else {
       return null;
     }
   }
+
   refresh() {
     count = 0;
     percent = 0.0;
     emit(Refresh());
   }
-  double result = 0.0;
-  calculateZakat({required double money}){
-     result = money *(2.5/100);
-     emit(Calculation());
-  }
 
+  double result = 0.0;
+
+  calculateZakat({required double money}) {
+    result = money * (2.5 / 100);
+    emit(Calculation());
+  }
 
   Location location = Location();
   LocationData? locationData;
+  Coordinates? myCoordinates;
+  CalculationParameters? params;
+  PrayerTimes? prayerTimes;
+
   determinePosition() async {
-
-
     bool serviceEnabled;
     PermissionStatus permissionGranted;
-
 
     serviceEnabled = await location.serviceEnabled();
     if (!serviceEnabled) {
       serviceEnabled = await location.requestService();
       if (!serviceEnabled) {
-        return ;
+        return;
       }
     }
 
@@ -156,13 +156,64 @@ AzkarMoriningModel? azkarMoriningModel;
     if (permissionGranted == PermissionStatus.denied) {
       permissionGranted = await location.requestPermission();
       if (permissionGranted != PermissionStatus.granted) {
-        return ;
+        return;
       }
     }
 
     locationData = await location.getLocation();
+    myCoordinates = Coordinates(
+      locationData!.latitude!,
+      locationData!.longitude!,
+    ); // Replace with your own location lat, lng.
+    params = CalculationMethod.egyptian.getParameters();
+
+    params!.madhab = Madhab.shafi;
+    prayerTimes = PrayerTimes.today(myCoordinates!, params!);
     print(locationData);
     emit(GetLocation());
   }
 
+  String? getPrayerName() {
+    switch (prayerTimes!.nextPrayer().name) {
+      case 'fajr':
+        return 'صلاة الفجر';
+      case 'sunrise':
+        return 'صلاة الشروق';
+      case 'dhuhr':
+        return 'صلاة الظهر';
+      case 'asr':
+        return 'صلاة العصر';
+      case 'maghrib':
+        return 'صلاة المغرب';
+      case 'isha':
+        return 'صلاة العشاء';
+      case 'none':
+      default:
+        return null;
+
+      // emit(GetPrayer());
+    }
+  }
+
+  DateTime? getPrayer() {
+    switch (prayerTimes!.nextPrayer().name) {
+      case 'fajr':
+        return prayerTimes!.timeForPrayer(Prayer.fajr);
+      case 'sunrise':
+        return prayerTimes!.timeForPrayer(Prayer.sunrise);
+      case 'dhuhr':
+        return prayerTimes!.timeForPrayer(Prayer.dhuhr);
+      case 'asr':
+        return prayerTimes!.timeForPrayer(Prayer.asr);
+      case 'maghrib':
+        return prayerTimes!.timeForPrayer(Prayer.maghrib);
+      case 'isha':
+        return prayerTimes!.timeForPrayer(Prayer.isha);
+      case 'none':
+      default:
+        return null;
+
+      // emit(GetPrayer());
+    }
+  }
 }

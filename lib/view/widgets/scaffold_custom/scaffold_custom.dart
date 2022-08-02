@@ -7,6 +7,7 @@ import '../../screens/layout/layout.dart';
 
 scaffoldCustom({
   required Widget body,
+  Key? key,
   String? appBarTitle,
   IconData? icon,
   Function? onPressed,
@@ -16,7 +17,7 @@ scaffoldCustom({
   bool? isExtend = false,
   Widget? floatingActionButton,
 }) {
-  return Scaffold(
+  return Scaffold(key: key,
     extendBodyBehindAppBar:isExtend! ,
     appBar: appBarCustom,
     body: Layout(

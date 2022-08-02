@@ -16,14 +16,12 @@ ThemeData getApplicationTheme() {
     disabledColor: ColorManager.grey1,
     splashColor: ColorManager.labelUnSelectedColor,
     iconTheme: IconThemeData(
-      color: defualtColor,
+      color: ColorManager.black,
     ),
-    progressIndicatorTheme: ProgressIndicatorThemeData(
-      color: defualtColor
-    ),
+    progressIndicatorTheme: ProgressIndicatorThemeData(color: defualtColor),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      selectedItemColor: defualtColor,
-      selectedIconTheme: IconThemeData(color: defualtColor, size: 28.sp),
+      selectedItemColor: ColorManager.black,
+      selectedIconTheme: IconThemeData(color: ColorManager.black, size: 28.sp),
     ),
     // ripple effect color
     // cardview theme
@@ -55,6 +53,10 @@ ThemeData getApplicationTheme() {
             primary: ColorManager.primary,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(AppSize.s12)))),
+
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: defualtColor,
+    ),
 
     textTheme: TextTheme(
         displayLarge: getSemiBoldStyle(

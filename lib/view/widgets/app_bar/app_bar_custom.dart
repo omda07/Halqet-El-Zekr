@@ -10,6 +10,7 @@ IconData? iconData;
 String? tittle;
 Function? onPressed;
 List<Widget>? actions;
+bool? isNull;
 // appBarCustom(context:context,{this.iconData = Icons.arrow_back_rounded , this.leading = '', this.onPressed, Key? key}) : super(key: key);
 
 // @override
@@ -18,6 +19,7 @@ appBarCustom(
     leading = '',
     onPressed,
     required BuildContext context,
+      isNull =true,
     actions}) {
   return AppBar(
     centerTitle: true,
@@ -25,15 +27,15 @@ appBarCustom(
       statusBarIconBrightness: Brightness.dark,
       statusBarColor: Colors.transparent,
     ),
-    leading: Container(
+    leading:isNull? Container(
       margin: const EdgeInsets.all( 4),
       padding: EdgeInsets.all(6.sp),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: ColorManager.prerequisiteCardColor  ,
+        color: ColorManager.cardColor  ,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey[200]!,
+            color: Colors.grey[100]!,
             spreadRadius: 2,
             blurRadius: 3,
             offset: const Offset(0, 3), // changes position of shadow
@@ -50,7 +52,7 @@ appBarCustom(
           color: ColorManager.primary,
         ),
       ),
-    ),
+    ):null,
     title:
     textCustom(
       textAlign: TextAlign.center,

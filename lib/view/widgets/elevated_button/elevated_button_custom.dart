@@ -27,7 +27,7 @@ final Color? borderColor;
     this.elevation = 0,
     this.colors,
     this.fontSize ,
-    this.textColor = Colors.white,
+    this.textColor = Colors.black,
     this.widget, this.borderColor,
   }) : super(key: key);
 

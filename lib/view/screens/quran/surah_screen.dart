@@ -7,12 +7,13 @@ import 'package:hesn_elmuslim/view/widgets/scaffold_custom/scaffold_custom.dart'
 import '../../../cubit/quran/quran_cubit.dart';
 import '../../../cubit/quran/quran_state.dart';
 import '../../resources/color_manager.dart';
+import '../../widgets/surah_custom.dart';
 import '../../widgets/text_custom/text_custom.dart';
 
 class SurahScreen extends StatelessWidget {
   final String id;
 
-  const SurahScreen({Key? key, required this.id}) : super(key: key);
+  SurahScreen({Key? key, required this.id}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,28 +45,7 @@ class SurahScreen extends StatelessWidget {
                       child: Column(
                         textDirection: TextDirection.rtl,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: Image.asset(
-                                  'assets/images/corner.png',
-                                  width: 60.w,
-                                  color: ColorManager.primary,
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.topLeft,
-                                child: Image.asset(
-                                  'assets/images/corner3.png',
-                                  width: 60.w,
-                                  color: ColorManager.primary,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
+                          SurahCustom(widget:  Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -76,7 +56,7 @@ class SurahScreen extends StatelessWidget {
                                     textAlign: TextAlign.center,
                                     context: context,
                                     text:
-                                        '${cubit.quranSurah!.verses![index].text!} ${cubit.quranSurah!.verses![index].id}',
+                                    '${cubit.quranSurah!.verses![index].text!} (${cubit.quranSurah!.verses![index].id})',
                                     fontSize: 24.sp,
                                   ),
                                   subtitle: textCustom(
@@ -90,28 +70,10 @@ class SurahScreen extends StatelessWidget {
                                 ),
                               ),
                             ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Align(
-                                alignment: Alignment.bottomRight,
-                                child: Image.asset(
-                                  'assets/images/corner2.png',
-                                  width: 60.w,
-                                  color: ColorManager.primary,
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.bottomLeft,
-                                child: Image.asset(
-                                  'assets/images/corner1.png',
-                                  width: 60.w,
-                                  color: ColorManager.primary,
-                                ),
-                              ),
-                            ],
-                          ),
+                          ),),
+
+
+
                           Divider(
                             height: 20.h,
                             thickness: 2,

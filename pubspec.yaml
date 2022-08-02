@@ -51,6 +51,10 @@ dependencies:
   location: ^4.2.0
   dio: ^4.0.6
   pdfx: ^2.2.0
+  supabase_flutter: ^0.3.3
+  hijri: ^3.0.0
+  arabic_numbers: ^1.0.0
+  analog_clock: ^0.1.1
 
 
 

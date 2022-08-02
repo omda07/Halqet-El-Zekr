@@ -19,16 +19,14 @@ class QuranScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: appBarCustom(
-          context: context,
-          leading: 'المصحف الكريم',
-          onPressed: () {
-
-            Navigator.pop(context);
-          },
-          ),
+        context: context,
+        leading: 'المصحف الكريم',
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
       body: BlocConsumer<QuranCubit, QuranStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -39,12 +37,12 @@ class QuranScreen extends StatelessWidget {
                 padding: EdgeInsets.all(6.sp),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: ColorManager.prerequisiteCardColor  ,
+                  color: ColorManager.cardColor,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey[200]!,
-                      spreadRadius: 2,
-                      blurRadius: 3,
+                      color: Colors.grey[100]!,
+                      spreadRadius: 1,
+                      blurRadius: 1,
                       offset: const Offset(0, 3), // changes position of shadow
                     ),
                   ],
@@ -61,7 +59,8 @@ class QuranScreen extends StatelessWidget {
                           pageNumber: int.parse(num.text),
                         );
                       },
-                      child: textCustom(text: 'اذهب', context: context, fontSize: 22.sp),
+                      child: textCustom(
+                          text: 'اذهب', context: context, fontSize: 22.sp),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
@@ -84,33 +83,36 @@ class QuranScreen extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: PdfViewPinch( scrollDirection: Axis.horizontal,backgroundDecoration: BoxDecoration(
+                child: PdfViewPinch(
+                  scrollDirection: Axis.horizontal,
+                  backgroundDecoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: ColorManager.prerequisiteCardColor  ,
+                    color: ColorManager.cardColor,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey[200]!,
-                        spreadRadius: 2,
-                        blurRadius: 3,
-                        offset: const Offset(0, 3), // changes position of shadow
+                        color: Colors.grey[100]!,
+                        spreadRadius: 1,
+                        blurRadius: 1,
+                        offset:
+                            const Offset(0, 3), // changes position of shadow
                       ),
                     ],
-
-                ) ,
+                  ),
                   controller: pdfPinchController,
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 0, bottom: 10,left: 10,right: 10),
+                margin: const EdgeInsets.only(
+                    top: 0, bottom: 10, left: 10, right: 10),
                 // padding: EdgeInsets.all(6.sp),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: ColorManager.prerequisiteCardColor  ,
+                  color: ColorManager.cardColor,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey[200]!,
-                      spreadRadius: 2,
-                      blurRadius: 3,
+                      color: Colors.grey[100]!,
+                      spreadRadius: 1,
+                      blurRadius: 1,
                       offset: const Offset(0, 3), // changes position of shadow
                     ),
                   ],
@@ -132,7 +134,8 @@ class QuranScreen extends StatelessWidget {
                     PdfPageNumber(
                       controller: pdfPinchController,
                       // When `loadingState != PdfLoadingState.success`  `pagesCount` equals null_
-                      builder: (_, state, loadingState, pagesCount) => Container(
+                      builder: (_, state, loadingState, pagesCount) =>
+                          Container(
                         alignment: Alignment.center,
                         child: textCustom(
                             context: context,

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hesn_elmuslim/view/widgets/app_bar/app_bar_custom.dart';
 import 'package:hesn_elmuslim/view/widgets/scaffold_custom/scaffold_custom.dart';
+import 'package:hesn_elmuslim/view/widgets/surah_custom.dart';
 import '../../../cubit/hadeth/hadeth_cubit.dart';
 import '../../../cubit/hadeth/hadeth_state.dart';
 import '../../resources/color_manager.dart';
@@ -48,28 +49,8 @@ class HadethDetailsScreen extends StatelessWidget {
                       child: Column(
                         textDirection: TextDirection.rtl,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: Image.asset(
-                                  'assets/images/corner.png',
-                                  width: 60.w,
-                                  color: ColorManager.primary,
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.topLeft,
-                                child: Image.asset(
-                                  'assets/images/corner3.png',
-                                  width: 60.w,
-                                  color: ColorManager.primary,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
+                       
+                          SurahCustom(widget:Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -103,28 +84,8 @@ class HadethDetailsScreen extends StatelessWidget {
                                 ),
                               ),
                             ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Align(
-                                alignment: Alignment.bottomRight,
-                                child: Image.asset(
-                                  'assets/images/corner2.png',
-                                  width: 60.w,
-                                  color: ColorManager.primary,
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.bottomLeft,
-                                child: Image.asset(
-                                  'assets/images/corner1.png',
-                                  width: 60.w,
-                                  color: ColorManager.primary,
-                                ),
-                              ),
-                            ],
-                          ),
+                          ) ,),
+
                           Divider(
                             height: 20.h,
                             thickness: 2,

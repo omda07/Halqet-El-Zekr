@@ -31,37 +31,56 @@ class QuranSurahScreen extends StatelessWidget {
             var cubit = QuranCubit.get(context);
 
             return SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.all(20.0.sp),
-                child: Column(
-                  children: [
-                    Row(
+              child: Column(
+                children: [
+                  Padding(
+                    padding:  EdgeInsets.symmetric(horizontal: 30.0.sp),
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         textCustom(
                           context: context,
-                          text: 'الصورة',
-                          fontSize: 28.sp,
+                          text: 'السورة',
+                          fontSize: 26.sp,
                           fontWeight: FontWeight.bold,
                         ),
                         textCustom(
                           context: context,
                           text: 'عدد الآيات',
-                          fontSize: 28.sp,
+                          fontSize: 26.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ],
                     ),
-                    ConditionalBuilder(
-                      condition: cubit.list.isNotEmpty,
-                      builder: (context) {
-                        return ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          itemCount: cubit.list.length,
-                          shrinkWrap: true,
-                          itemExtent: 80,
-                          itemBuilder: (BuildContext context, int index) =>
-                              ListTile(
+                  ),
+                  ConditionalBuilder(
+                    condition: cubit.list.isNotEmpty,
+                    builder: (context) {
+                      return ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: cubit.list.length,
+                        shrinkWrap: true,
+                        itemExtent: 80,
+                        itemBuilder: (BuildContext context, int index) =>
+                            Container(
+                              width: double.infinity,
+                              margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 0,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey[300]!,
+                                    offset: const Offset(0.6, 1.2), //(x,y)
+                                    blurRadius: 6.0,
+                                  ),
+                                ],
+                                color: ColorManager.cardColor,
+                              ),
+                              child: ListTile(
                                   title: textCustom(
                                     context: context,
                                     text: cubit.list[index]['name'],
@@ -82,8 +101,8 @@ class QuranSurahScreen extends StatelessWidget {
                                         textCustom(
                                           context: context,
                                           text:
-                                              "${cubit.list[index]['total_verses']}",
-                                          fontSize: 20.sp,
+                                             '(${cubit.list[index]['total_verses']})',
+                                          fontSize: 16.sp,
                                         ),
                                         SizedBox(
                                           width: 10.w,
@@ -112,14 +131,14 @@ class QuranSurahScreen extends StatelessWidget {
                                                 id: cubit.list[index]['id']
                                                     .toString())));
                                   }),
-                        );
-                      },
-                      fallback: (context) => const Center(
-                        child: CircularProgressIndicator(),
-                      ),
+                            ),
+                      );
+                    },
+                    fallback: (context) => const Center(
+                      child: CircularProgressIndicator(),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             );
           },

@@ -32,3 +32,4 @@ class Refresh extends HomeStates{}
 class Share extends HomeStates{}
 class Calculation extends HomeStates{}
 class GetLocation extends HomeStates{}
+class GetPrayer extends HomeStates{}
