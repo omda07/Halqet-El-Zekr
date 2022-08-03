@@ -10,6 +10,7 @@ import 'package:hesn_elmuslim/view/widgets/scaffold_custom/scaffold_custom.dart'
 import 'package:hesn_elmuslim/view/widgets/text_custom/text_custom.dart';
 
 import '../../resources/color_manager.dart';
+import '../../widgets/component.dart';
 import '../../widgets/surah_custom.dart';
 import '../../widgets/text_form_field/text_form_field_custom.dart';
 
@@ -22,7 +23,9 @@ class PeopleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: BlocProvider.of<PeopleCubit>(context)..getNames(),
+      value: BlocProvider.of<PeopleCubit>(context)
+        ..getNames()
+        ..getUniqueDeviceId(),
       child: BlocConsumer<PeopleCubit, PeopleSates>(
         listener: (context, state) {
           if (state is InsertPeopleSuccessState) {
@@ -31,6 +34,7 @@ class PeopleScreen extends StatelessWidget {
         },
         builder: (context, state) {
           var cubit = PeopleCubit.get(context);
+
           return scaffoldCustom(
               key: scaffoldKey,
               appBarCustom: appBarCustom(
@@ -39,7 +43,7 @@ class PeopleScreen extends StatelessWidget {
                 leading: 'أسماء المتوفيين',
               ),
               body: ConditionalBuilder(
-                condition: cubit.peopleModel != null,
+                condition: cubit.peopleModel != null ,
                 builder: (context) {
                   return Padding(
                     padding: EdgeInsets.all(20.sp),
@@ -53,32 +57,60 @@ class PeopleScreen extends StatelessWidget {
                           ),
                           Column(
                             children: List.generate(
-                                cubit.peopleModel!.data!.length,
-                                (index) => Container(
-                                      width: double.infinity,
-                                      margin: const EdgeInsets.all(4),
-                                      padding: EdgeInsets.all(14.sp),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        color: ColorManager.cardColor,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey[100]!,
-                                            spreadRadius: 1,
-                                            blurRadius: 1,
-                                            offset: const Offset(0,
-                                                3), // changes position of shadow
-                                          ),
-                                        ],
-                                      ),
-                                      child: textCustom(
-                                          height: 0.0,
-                                          textAlign: TextAlign.center,
-                                          text: cubit
-                                              .peopleModel!.data![index].name!,
-                                          fontSize: 24.sp,
-                                          context: context),
-                                    )),
+                              cubit.peopleModel!.data == null
+                                  ? 0
+                                  : cubit.peopleModel!.data!.length,
+                              (index) => Container(
+                                width: double.infinity,
+                                margin: const EdgeInsets.all(4),
+                                padding: EdgeInsets.all(14.sp),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: ColorManager.cardColor,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey[100]!,
+                                      spreadRadius: 1,
+                                      blurRadius: 1,
+                                      offset: const Offset(
+                                          0, 3), // changes position of shadow
+                                    ),
+                                  ],
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    textCustom(
+                                        height: 0.0,
+                                        textAlign: TextAlign.center,
+                                        text: cubit.peopleModel!.data![index]
+                                                .name ??
+                                            '',
+                                        fontSize: 24.sp,
+                                        context: context),
+                                    ConditionalBuilder(
+                                      condition:
+                                          cubit.peopleModel!.data![index].uid ==
+                                              cubit.uniqueDeviceId,
+                                      builder: (context) {
+                                        return IconButton(
+                                          onPressed: () async {
+                                            await cubit.deleteName(
+                                                id: cubit.peopleModel!
+                                                    .data![index].id);
+
+                                          },
+                                          icon:  Icon(Icons
+                                              .remove_circle_outline_outlined,color: ColorManager.frameColor,size: 30.sp,),
+                                        );
+                                      },
+                                      fallback: (context) => const SizedBox(),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -122,11 +154,16 @@ class PeopleScreen extends StatelessWidget {
                                         onPressed: () {
                                           if (formKey.currentState!
                                               .validate()) {
-                                            cubit.insertName(name: name.text);
+                                            cubit.insertName(
+                                                name: name.text,
+                                                uid: cubit.uniqueDeviceId);
+                                         showToast( message: 'جاري مراجعة الاسم.....',);
                                             Navigator.pop(context);
                                             formKey.currentState!.reset();
                                             cubit.changeBottomSheetState(
                                                 isShow: false);
+
+
                                           }
                                         },
                                         text: 'سجل الان')

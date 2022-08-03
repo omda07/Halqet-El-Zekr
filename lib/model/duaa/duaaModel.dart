@@ -51,7 +51,6 @@ class AzkarByCategory {
         _azkarList.add(
           AzkarModel.fromJson(element),
         );
-        print(element);
       },
     );
   }

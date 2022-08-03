@@ -28,3 +28,13 @@ class InsertPeopleErrorState extends PeopleSates{
 
   InsertPeopleErrorState(this.error);
 }
+
+class DeletePeopleLoadingState extends PeopleSates{}
+class DeletePeopleSuccessState extends PeopleSates{
+
+}
+class DeletePeopleErrorState extends PeopleSates{
+  final String error;
+
+  DeletePeopleErrorState(this.error);
+}

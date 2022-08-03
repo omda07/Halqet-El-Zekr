@@ -35,13 +35,15 @@ class Data {
   int? id;
   String? createdAt;
   String? name;
+  String? uid;
   bool? approved;
-  Data({this.id, this.createdAt, this.name,this.approved});
+  Data({this.id, this.createdAt, this.name,this.approved,this.uid});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     createdAt = json['created_at'];
     name = json['name'];
+    uid = json['uid'];
     approved = json['approved'];
 
   }
@@ -51,6 +53,7 @@ class Data {
     data['id'] = id;
     data['created_at'] = createdAt;
     data['name'] = name;
+    data['uid'] = uid;
     data['approved'] = approved;
     return data;
   }

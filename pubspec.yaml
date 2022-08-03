@@ -55,6 +55,7 @@ dependencies:
   hijri: ^3.0.0
   arabic_numbers: ^1.0.0
   analog_clock: ^0.1.1
+  device_info_plus: ^4.0.1
 
 
 
