@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hesn_elmuslim/cubit/database/network/dio_helper.dart';
 import 'package:hesn_elmuslim/model/hadeth/hadeth_info_model.dart';
@@ -30,15 +32,15 @@ class HadethCubit extends Cubit<HadethStates> {
     });
   }
 
-  getHadethDetails({required String id}) {
+  getHadethDetails({required int id,required int page}) {
     emit(GetHadethDetailsLoading());
-    DioHelper.getData(url: 'hadeethenc.com/api/v1/hadeeths/list/?language=ar&category_id=$id&page=1&per_page=20').then((value) {
+    DioHelper.getData(url: 'hadeethenc.com/api/v1/hadeeths/list/?language=ar&category_id=$id&page=$page&per_page=10').then((value) {
       hadethDetailsModel = HadethDetailsModel.fromJson(value.data);
-      print(hadethDetailsModel!.data![0].title);
+      // print(hadethDetailsModel!.data![0].title);
 
       emit(GetHadethDetailsSuccess(hadethDetailsModel!));
     }).catchError((onError) {
-      print(onError.toString());
+      print(onError--);
       emit(GetHadethDetailsError(onError.toString()));
     });
   }

@@ -91,7 +91,7 @@ class HomeScreen extends StatelessWidget {
             shrinkWrap: true,
             primary: false,
             padding: const EdgeInsets.all(20),
-            childAspectRatio: 1.15,
+            childAspectRatio: 1,
             crossAxisCount: 2,
             children: <Widget>[
               buildItem(

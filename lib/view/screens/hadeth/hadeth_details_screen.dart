@@ -21,8 +21,10 @@ class HadethDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int page = 1;
     return BlocProvider(
-      create: (context) => HadethCubit()..getHadethDetails(id: id),
+      create: (context) =>
+          HadethCubit()..getHadethDetails(id: int.parse(id), page: page),
       child: BlocConsumer<HadethCubit, HadethStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -31,7 +33,8 @@ class HadethDetailsScreen extends StatelessWidget {
           return scaffoldCustom(
             appBarCustom: appBarCustom(
                 context: context,
-                leading: name ,
+                leading:
+                    '$name ${cubit.hadethDetailsModel != null ? cubit.hadethDetailsModel!.meta!.currentPage! : ''}',
                 onPressed: () {
                   Navigator.pop(context);
                 }),
@@ -49,43 +52,43 @@ class HadethDetailsScreen extends StatelessWidget {
                       child: Column(
                         textDirection: TextDirection.rtl,
                         children: [
-
-                          SurahCustom(widget:Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                flex: 10,
-                                child: ListTile(
-                                  title: textCustom(
-                                    textAlign: TextAlign.center,
-                                    context: context,
-                                    text: cubit.hadethDetailsModel!.data![index]
-                                        .title!,
-                                    fontSize: 24.sp,
-                                  ),
-                                  subtitle: TextButton(
-                                    onPressed: () {
-                                      navigator(
-                                          context,
-                                          HadethInfoScreen(
-                                            id: '${cubit.hadethDetailsModel!.data![index].id}',
-                                          ));
-                                    },
-                                    child: textCustom(
-                                      decoration: TextDecoration.underline,
+                          SurahCustom(
+                            widget: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  flex: 10,
+                                  child: ListTile(
+                                    title: textCustom(
                                       textAlign: TextAlign.center,
-                                      color: ColorManager.grey2,
                                       context: context,
-                                      text: 'أقرأ المزيد',
-                                      fontSize: 18.sp,
+                                      text: cubit.hadethDetailsModel!
+                                          .data![index].title!,
+                                      fontSize: 24.sp,
+                                    ),
+                                    subtitle: TextButton(
+                                      onPressed: () {
+                                        navigator(
+                                            context,
+                                            HadethInfoScreen(
+                                              id: '${cubit.hadethDetailsModel!.data![index].id}',
+                                            ));
+                                      },
+                                      child: textCustom(
+                                        decoration: TextDecoration.underline,
+                                        textAlign: TextAlign.center,
+                                        color: ColorManager.grey2,
+                                        context: context,
+                                        text: 'أقرأ المزيد',
+                                        fontSize: 18.sp,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ) ,),
-
+                              ],
+                            ),
+                          ),
                           Divider(
                             height: 20.h,
                             thickness: 2,
@@ -101,12 +104,29 @@ class HadethDetailsScreen extends StatelessWidget {
                 child: CircularProgressIndicator(),
               ),
             ),
+            floatingActionButton: cubit.hadethDetailsModel != null
+                ? FloatingActionButton(
+                    onPressed: int.parse(
+                                cubit.hadethDetailsModel!.meta!.currentPage!) <
+                            cubit.hadethDetailsModel!.meta!.lastPage!
+                        ? () {
+                            print(cubit.hadethDetailsModel!.meta!.currentPage!);
+                            cubit.getHadethDetails(
+                                id: int.parse(id),
+                                page: int.parse(cubit.hadethDetailsModel!.meta!
+                                        .currentPage!) +
+                                    1);
+                            // page =int.parse(cubit.hadethDetailsModel!.meta!.currentPage!) ;
+                            print(page);
+                            print(cubit.hadethDetailsModel!.meta!.currentPage!);
+                          }
+                        : null,
+                    child: textCustom(text: 'التالي', context: context),
+                  )
+                : null,
           );
         },
       ),
     );
   }
 }
-
-
-

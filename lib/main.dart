@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hesn_elmuslim/cubit/database/network/dio_helper.dart';
+import 'package:hesn_elmuslim/cubit/hadeth/hadeth_cubit.dart';
 import 'package:hesn_elmuslim/cubit/home/home_cubit.dart';
 import 'package:hesn_elmuslim/cubit/quran/quran_cubit.dart';
 import 'package:hesn_elmuslim/view/screens/azkar/athkar_screen.dart';
@@ -51,12 +52,13 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => HomeCubit()),
         BlocProvider(create: (context) => QuranCubit()),
         BlocProvider(create: (context) => PeopleCubit()),
+        BlocProvider(create: (context) => HadethCubit()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 690),
         minTextAdapt: true,
         splitScreenMode: true,
-        builder: (BuildContext context, widgets) => MaterialApp(
+        builder: (BuildContext context, widgets) => MaterialApp(title: 'حلقة الذكر',
 
           routes: {
             'azkarScreen': (BuildContext context) => const AthkarScreen(),
