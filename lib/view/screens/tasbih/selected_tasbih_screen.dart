@@ -2,10 +2,11 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hesn_elmuslim/cubit/home/home_cubit.dart';
-import 'package:hesn_elmuslim/cubit/home/home_state.dart';
 import 'package:hesn_elmuslim/view/resources/color_manager.dart';
 import 'package:hesn_elmuslim/view/widgets/app_bar/app_bar_custom.dart';
+import '../../../cubit/database/local/cache_helper.dart';
+import '../../../cubit/tasbih/tasbih_cubit.dart';
+import '../../../cubit/tasbih/tasbih_state.dart';
 import '../../widgets/circularPercentIndicator_custom.dart';
 import '../../widgets/text_custom/text_custom.dart';
 
@@ -24,11 +25,11 @@ class SelectedTasbehScreen extends StatelessWidget {
         },
       ),
       body: BlocProvider(
-        create: (context) => HomeCubit()..getTasbeh(context: context),
-        child: BlocConsumer<HomeCubit, HomeStates>(
+        create: (context) => TasbihCubit()..getTasbeh(context: context),
+        child: BlocConsumer<TasbihCubit, TasbihStates>(
           listener: (context, state) {},
           builder: (context, state) {
-            var cubit = HomeCubit.get(context);
+            var cubit = TasbihCubit.get(context);
             return ConditionalBuilder(
               condition: cubit.tasbehModel != null,
               builder: (context) {
@@ -52,10 +53,11 @@ class SelectedTasbehScreen extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           cubit.incrementCounter(counter: 99);
+                          CacheHelper.put(key: '$i', value: cubit.count);
                         },
                         child: CircularPercentIndicatorCustom(
                           radius: 120.0.r,
-                          counter: cubit.count,
+                          counter: CacheHelper.get(key:'$i') ?? 0,
                           percent: cubit.percent,
                           count: int.parse(
                               '${cubit.tasbehModel!.tasbeh![i].count}'),
@@ -67,6 +69,7 @@ class SelectedTasbehScreen extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           cubit.refresh();
+                          CacheHelper.removeData(key: '$i');
                         },
                         child: Container(
                           padding: const EdgeInsets.all(10),

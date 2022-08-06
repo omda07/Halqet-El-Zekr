@@ -3,10 +3,14 @@ import 'dart:math' show pi;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_qiblah/flutter_qiblah.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:vibration/vibration.dart';
 
+import '../../resources/color_manager.dart';
+import '../../widgets/text_custom/text_custom.dart';
 import 'loading_indicator.dart';
 import 'location_error_widget.dart';
 
@@ -66,7 +70,7 @@ class QiblahCompassState extends State<QiblahCompass> {
             }
           } else {
             return LocationErrorWidget(
-              error: "من فضلك شغل الموقع",
+              error: "من فضلك فعل تحديد الموقع",
               callback: _checkLocationStatus,
             );
           }
@@ -104,7 +108,7 @@ class QiblahCompassWidget extends StatelessWidget {
     alignment: Alignment.center,
   );
 
-   QiblahCompassWidget({Key? key}) : super(key: key);
+  QiblahCompassWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +120,12 @@ class QiblahCompassWidget extends StatelessWidget {
         }
 
         final qiblahDirection = snapshot.data!;
+        if (qiblahDirection.offset.toStringAsFixed(0) ==
+            qiblahDirection.direction.toStringAsFixed(0)) {
 
+        Vibration.vibrate();
+
+        }
         return Stack(
           alignment: Alignment.center,
           children: <Widget>[
@@ -131,8 +140,22 @@ class QiblahCompassWidget extends StatelessWidget {
             ),
             Positioned(
               bottom: 8,
-              child: Text("${qiblahDirection.offset.toStringAsFixed(3)}°"),
-            )
+              child: textCustom(
+                  context: context,
+                  text: "${qiblahDirection.offset.toStringAsFixed(3)}°",
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.bold),
+            ),
+            Positioned(
+              top: 18,
+              child: textCustom(
+                  context: context,
+                  text: "${qiblahDirection.direction.toStringAsFixed(0)}°",
+                  fontSize: 20.sp,
+                  color: qiblahDirection.offset.toStringAsFixed(0) !=
+                      qiblahDirection.direction.toStringAsFixed(0) ? ColorManager.primary :ColorManager.kGreenColor,
+                  fontWeight: FontWeight.bold),
+            ),
           ],
         );
       },

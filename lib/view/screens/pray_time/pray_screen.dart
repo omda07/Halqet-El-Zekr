@@ -43,6 +43,7 @@ class PrayTimeScreen extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
+
                         AnalogClock(
                           height: 200.h,
                           decoration: const BoxDecoration(
@@ -126,11 +127,11 @@ class PrayTimeScreen extends StatelessWidget {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(
-        bottom: 12.h,
+        bottom: 10.h,
       ),
       padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 16,
+        horizontal: 12,
+        vertical: 10,
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.0),
@@ -158,6 +159,7 @@ class PrayTimeScreen extends StatelessWidget {
             context: context,
             fontSize: 24,
           ),
+
         ],
       ),
     );

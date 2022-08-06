@@ -37,7 +37,8 @@ class TasbehScreen extends StatelessWidget {
               builder: (context) {
                 return ListView.builder(
                   physics: const BouncingScrollPhysics(),
-                  itemBuilder: (context, index) =>ListItemCustom(screen: SelectedTasbehScreen(
+                  itemBuilder: (context, index) =>ListItemCustom(index: index,
+                    screen: SelectedTasbehScreen(
                     i: index,
                   ), text: '${cubit.tasbehModel!.tasbeh![index].content}', image: 'tasbih',leading:Column(
                     mainAxisAlignment: MainAxisAlignment.center,

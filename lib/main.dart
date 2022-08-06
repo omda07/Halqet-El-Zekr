@@ -5,6 +5,7 @@ import 'package:hesn_elmuslim/cubit/database/network/dio_helper.dart';
 import 'package:hesn_elmuslim/cubit/hadeth/hadeth_cubit.dart';
 import 'package:hesn_elmuslim/cubit/home/home_cubit.dart';
 import 'package:hesn_elmuslim/cubit/quran/quran_cubit.dart';
+import 'package:hesn_elmuslim/cubit/tasbih/tasbih_cubit.dart';
 import 'package:hesn_elmuslim/view/screens/azkar/athkar_screen.dart';
 import 'package:hesn_elmuslim/view/screens/duaa/duaa_screen.dart';
 import 'package:hesn_elmuslim/view/screens/hadeth/hadeth_screen.dart';
@@ -18,6 +19,7 @@ import 'package:hesn_elmuslim/view/styles/theme.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'cubit/cubit For Internet/internet_cubit.dart';
+import 'cubit/database/local/cache_helper.dart';
 import 'cubit/database/network/end_points.dart';
 import 'cubit/people/people_cubit.dart';
 import 'observer.dart';
@@ -26,6 +28,7 @@ import 'view/screens/quran/quran_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DioHelper.init(baseUrl);
+  await CacheHelper.init();
   await Supabase.initialize(
       url: 'https://thvjomrwfahzoyuolusn.supabase.co',
       anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRodmpvbXJ3ZmFoem95dW9sdXNuIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTkzNTI0MTIsImV4cCI6MTk3NDkyODQxMn0._x0MXyUetxHeC7lMsGTlu5mMqGMRbgeF2_d5Si65R3c',
@@ -53,6 +56,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => QuranCubit()),
         BlocProvider(create: (context) => PeopleCubit()),
         BlocProvider(create: (context) => HadethCubit()),
+        BlocProvider(create: (context) => TasbihCubit()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 690),

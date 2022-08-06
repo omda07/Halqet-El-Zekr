@@ -1,3 +1,4 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,7 +17,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  final _screens = [ HomeScreen(), PeopleScreen()];
+  final _screens = [HomeScreen(), PeopleScreen()];
 
   Future<bool> onWillPop() async {
     return (await showDialog(
@@ -70,28 +71,32 @@ class _MainPageState extends State<MainPage> {
               .values
               .toList(),
         ),
-        bottomNavigationBar: BottomNavigationBar(selectedLabelStyle: TextStyle(color: ColorManager.black),
-          currentIndex: _selectedIndex,
+        bottomNavigationBar: CurvedNavigationBar(
+          index: _selectedIndex,
+          buttonBackgroundColor: Colors.white,
+          animationCurve: Curves.fastOutSlowIn,
+          backgroundColor: ColorManager.primary,
+          height: 50.h,
+          color: ColorManager.cardColor,
+          items: <Widget>[
+            Image.asset(
+              'assets/images/home.png',
+              scale: 18,
+            ),
+            Image.asset(
+              'assets/images/sadqa.png',
+              scale: 14,
+            ),
+          ],
           onTap: (index) {
-            if(index == 1){
+            //Handle button tap
+            if (index == 1) {
               BlocProvider.of<PeopleCubit>(context).getNames();
             }
             setState(() {
               _selectedIndex = index;
             });
           },
-          items:  [
-           const BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              label: 'الرئيسة',
-              activeIcon: Icon(Icons.home_outlined),
-            ),
-            BottomNavigationBarItem(
-              icon: Image.asset('assets/images/sadqa.png',scale: 16,),
-              label: 'صدقة جارية',
-              activeIcon:  Image.asset('assets/images/sadqa.png',scale: 15,),
-            ),
-          ],
         ),
       ),
     );

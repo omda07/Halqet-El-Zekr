@@ -21,7 +21,8 @@ class DuaaScreen extends StatelessWidget {
         },
       ),
       body: ListView.builder(
-        itemBuilder: (context, index) =>ListItemCustom(screen: DuaaDetailsScreen(
+        itemBuilder: (context, index) =>ListItemCustom(index: index,
+            screen: DuaaDetailsScreen(
           azkarName: azkarCategories[index].toString().trim(),
         ), text: azkarCategories[index].toString(), image: 'pray'),
         itemCount: azkarCategories.length,

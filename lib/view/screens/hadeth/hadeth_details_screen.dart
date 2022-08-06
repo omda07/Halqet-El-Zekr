@@ -105,24 +105,48 @@ class HadethDetailsScreen extends StatelessWidget {
               ),
             ),
             floatingActionButton: cubit.hadethDetailsModel != null
-                ? FloatingActionButton(
-                    onPressed: int.parse(
-                                cubit.hadethDetailsModel!.meta!.currentPage!) <
-                            cubit.hadethDetailsModel!.meta!.lastPage!
-                        ? () {
-                            print(cubit.hadethDetailsModel!.meta!.currentPage!);
-                            cubit.getHadethDetails(
-                                id: int.parse(id),
-                                page: int.parse(cubit.hadethDetailsModel!.meta!
-                                        .currentPage!) +
-                                    1);
-                            // page =int.parse(cubit.hadethDetailsModel!.meta!.currentPage!) ;
-                            print(page);
-                            print(cubit.hadethDetailsModel!.meta!.currentPage!);
-                          }
-                        : null,
-                    child: textCustom(text: 'التالي', context: context),
-                  )
+                ? Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                FloatingActionButton(
+                  key: Key('next'),
+                  onPressed: int.parse(
+                      cubit.hadethDetailsModel!.meta!.currentPage!) <
+                      cubit.hadethDetailsModel!.meta!.lastPage!
+                      ? () {
+                    print(cubit.hadethDetailsModel!.meta!.currentPage!);
+                    cubit.getHadethDetails(
+                        id: int.parse(id),
+                        page: int.parse(cubit.hadethDetailsModel!.meta!
+                            .currentPage!) +
+                            1);
+                    // page =int.parse(cubit.hadethDetailsModel!.meta!.currentPage!) ;
+                    print(page);
+                    print(cubit.hadethDetailsModel!.meta!.currentPage!);
+                  }
+                      : null,
+                  child: textCustom(text: 'التالي', context: context),
+                ),
+                FloatingActionButton(key: Key('forward'),
+                  onPressed: int.parse(
+                      cubit.hadethDetailsModel!.meta!.currentPage!) >
+                     1
+                      ? () {
+                    print(cubit.hadethDetailsModel!.meta!.currentPage!);
+                    cubit.getHadethDetails(
+                        id: int.parse(id),
+                        page: int.parse(cubit.hadethDetailsModel!.meta!
+                            .currentPage!) -
+                            1);
+                    // page =int.parse(cubit.hadethDetailsModel!.meta!.currentPage!) ;
+                    print(page);
+                    print(cubit.hadethDetailsModel!.meta!.currentPage!);
+                  }
+                      : null,
+                  child: textCustom(text: 'السابق', context: context),
+                )
+              ],
+            )
                 : null,
           );
         },

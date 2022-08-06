@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hesn_elmuslim/cubit/database/local/cache_helper.dart';
+import 'package:hesn_elmuslim/cubit/tasbih/tasbih_cubit.dart';
 import 'package:hesn_elmuslim/view/resources/color_manager.dart';
 import 'package:hesn_elmuslim/view/widgets/text_custom/text_custom.dart';
 
@@ -7,7 +9,8 @@ class ListItemCustom extends StatelessWidget {
   final String text;
   Widget? leading;
   final String image;
-   ListItemCustom({Key? key, required this.screen, required this.text, required this.image,this.leading}) : super(key: key);
+  final int index;
+   ListItemCustom({Key? key, required this.screen, required this.text, required this.image,this.leading, required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +34,8 @@ class ListItemCustom extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
+
+
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -44,7 +49,7 @@ class ListItemCustom extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Image.asset(
-                'assets/images/$image.png',scale:3 ,
+                'assets/images/$image.png',scale:10 ,
                 // width: 60,
               ),
               Flexible(

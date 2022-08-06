@@ -28,10 +28,13 @@ class HomeScreen extends StatelessWidget {
               Stack(
                 alignment: Alignment.bottomCenter,
                 children: [
-                  SizedBox(
-                    width: double.infinity,
-                    child: Image.asset(
-                      'assets/images/mosque.jpg',
+                  ClipRRect(
+                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(20.0),bottomLeft: Radius.circular(20.0)),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Image.asset(
+                        'assets/images/mosque.jpg',
+                      ),
                     ),
                   ),
                   BlocProvider(
@@ -47,7 +50,7 @@ class HomeScreen extends StatelessWidget {
                               cubit.params != null,
                           builder: (context) {
                             return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
 
                                 textCustom(
@@ -91,7 +94,7 @@ class HomeScreen extends StatelessWidget {
             shrinkWrap: true,
             primary: false,
             padding: const EdgeInsets.all(20),
-            childAspectRatio: 1,
+            childAspectRatio: 1.2,
             crossAxisCount: 2,
             children: <Widget>[
               buildItem(
@@ -116,7 +119,7 @@ class HomeScreen extends StatelessWidget {
                   context: context),
               buildItem(
                   label: 'القبلة',
-                  url: 'assets/images/kaaba.png',
+                  url: 'assets/images/qibla.png',
                   screen: 'qibla',
                   context: context),
               buildItem(
@@ -181,6 +184,7 @@ class HomeScreen extends StatelessWidget {
                 height: 45,
               ),
               textCustom(
+                height: 0.0,
                   context: context,
                   text: label,
                   fontSize: 18.sp,

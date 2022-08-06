@@ -41,7 +41,8 @@ class HadethCategoriesScreen extends StatelessWidget {
                     shrinkWrap: true,
                     itemExtent: 90,
                     itemBuilder: (BuildContext context, int index) =>
-                        ListItemCustom(screen: HadethDetailsScreen(
+                        ListItemCustom(index: index,
+                          screen: HadethDetailsScreen(
                           id: cubit.list[index]['id']
                               .toString(),
                           name: cubit.list[index]['title'],
