@@ -28,8 +28,8 @@ class CircularPercentIndicatorCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircularPercentIndicator(
-      radius: radius ?? 80,
-      lineWidth: 5.0,
+      radius: radius?.r ?? 80.r,
+      lineWidth: 5.0.w,
       percent: percent,
       animation: true,
       animateFromLastPercent: true,
@@ -45,7 +45,7 @@ class CircularPercentIndicatorCustom extends StatelessWidget {
             fontSize: 50.sp,
             fontWeight: FontWeight.w500,),
           Padding(
-            padding: const EdgeInsets.only(right: 65.0),
+            padding:  EdgeInsets.only(right: 65.0.w),
             child: textCustom(
                 context: context,
                 text: '/${arabicNumber.convert('$count')}',

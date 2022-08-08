@@ -38,9 +38,10 @@ class AzkarModel {
 
 }
 class AzkarByCategory {
-  final List<AzkarModel> _azkarList = [];
+   List<AzkarModel> _azkarList = [];
 
   getAzkarByCategory(String category) {
+    _azkarList = [];
     return allAzkar
         .where(
           (element) => element.containsValue(category),

@@ -22,15 +22,13 @@ class PeopleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: BlocProvider.of<PeopleCubit>(context)
-        ..getNames()
+    return BlocProvider(
+      create: (context) => PeopleCubit()
+        ..getNamesData()
         ..getUniqueDeviceId(),
       child: BlocConsumer<PeopleCubit, PeopleSates>(
         listener: (context, state) {
-          if (state is InsertPeopleSuccessState) {
-            BlocProvider.of<PeopleCubit>(context).getNames();
-          }
+
         },
         builder: (context, state) {
           var cubit = PeopleCubit.get(context);
@@ -42,83 +40,70 @@ class PeopleScreen extends StatelessWidget {
                 isNull: false,
                 leading: 'أسماء المتوفيين',
               ),
-              body: ConditionalBuilder(
-                condition: cubit.peopleModel != null ,
-                builder: (context) {
-                  return Padding(
-                    padding: EdgeInsets.all(20.sp),
-                    child: SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      child: Column(
-                        children: [
-                          SurahCustom(
-                            text:
-                                'بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ (1)الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ (2) الرَّحْمَنِ الرَّحِيمِ (3) مَالِكِ يَوْمِ الدِّينِ (4) إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ (5) اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ (6) صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ (7)',
-                          ),
-                          Column(
-                            children: List.generate(
-                              cubit.peopleModel!.data == null
-                                  ? 0
-                                  : cubit.peopleModel!.data!.length,
-                              (index) => Container(
-                                width: double.infinity,
-                                margin: const EdgeInsets.all(4),
-                                padding: EdgeInsets.all(14.sp),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  color: ColorManager.cardColor,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey[100]!,
-                                      spreadRadius: 1,
-                                      blurRadius: 1,
-                                      offset: const Offset(
-                                          0, 3), // changes position of shadow
-                                    ),
-                                  ],
+              body: Padding(
+                padding: EdgeInsets.all(20.sp),
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Column(
+                    children: [
+                      SurahCustom(
+                        text:
+                            'بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ (1)الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ (2) الرَّحْمَنِ الرَّحِيمِ (3) مَالِكِ يَوْمِ الدِّينِ (4) إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ (5) اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ (6) صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ (7)',
+                      ),
+                      Column(
+                        children: List.generate(
+                          cubit.names.isEmpty ? 0 : cubit.names.length,
+                          (index) => Container(
+                            width: double.infinity,
+                            margin:  EdgeInsets.all(4.sp),
+                            padding: EdgeInsets.all(14.sp),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.r),
+                              color: ColorManager.cardColor,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey[100]!,
+                                  spreadRadius: 1,
+                                  blurRadius: 1,
+                                  offset: const Offset(
+                                      0, 3), // changes position of shadow
                                 ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    textCustom(
-                                        height: 0.0,
-                                        textAlign: TextAlign.center,
-                                        text: cubit.peopleModel!.data![index]
-                                                .name ??
-                                            '',
-                                        fontSize: 24.sp,
-                                        context: context),
-                                    ConditionalBuilder(
-                                      condition:
-                                          cubit.peopleModel!.data![index].uid ==
-                                              cubit.uniqueDeviceId,
-                                      builder: (context) {
-                                        return IconButton(
-                                          onPressed: () async {
-                                            await cubit.deleteName(
-                                                id: cubit.peopleModel!
-                                                    .data![index].id);
-
-                                          },
-                                          icon:  Icon(Icons
-                                              .remove_circle_outline_outlined,color: ColorManager.frameColor,size: 30.sp,),
-                                        );
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                textCustom(
+                                    height: 0.0,
+                                    textAlign: TextAlign.center,
+                                    text: cubit.names[index].name ?? '',
+                                    fontSize: 24.sp,
+                                    context: context),
+                                ConditionalBuilder(
+                                  condition: cubit.names[index].uid ==
+                                      cubit.uniqueDeviceId,
+                                  builder: (context) {
+                                    return IconButton(
+                                      onPressed: () async {
+                                        await cubit.delete(
+                                            id: cubit.names[index].id!);
                                       },
-                                      fallback: (context) => const SizedBox(),
-                                    )
-                                  ],
-                                ),
-                              ),
+                                      icon: Icon(
+                                        Icons.remove_circle_outline_outlined,
+                                        color: ColorManager.frameColor,
+                                        size: 30.sp,
+                                      ),
+                                    );
+                                  },
+                                  fallback: (context) => const SizedBox(),
+                                )
+                              ],
                             ),
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  );
-                },
-                fallback: (context) => const Center(
-                  child: CircularProgressIndicator(),
+                    ],
+                  ),
                 ),
               ),
               floatingActionButton: FloatingActionButton(
@@ -130,8 +115,8 @@ class PeopleScreen extends StatelessWidget {
                           (context) {
                             return Container(
                               color: Colors.white,
-                              padding: const EdgeInsets.all(
-                                20.0,
+                              padding:  EdgeInsets.all(
+                                20.0.sp,
                               ),
                               child: Form(
                                 key: formKey,
@@ -147,23 +132,23 @@ class PeopleScreen extends StatelessWidget {
                                           }
                                           return null;
                                         }),
-                                    const SizedBox(
-                                      height: 15.0,
+                                     SizedBox(
+                                      height: 15.0.h,
                                     ),
                                     ElevatedButtonCustom(
                                         onPressed: () {
                                           if (formKey.currentState!
                                               .validate()) {
-                                            cubit.insertName(
+                                            cubit.createName(
                                                 name: name.text,
                                                 uid: cubit.uniqueDeviceId);
-                                         showToast( message: 'جاري مراجعة الاسم.....',);
+                                            showToast(
+                                              message: 'جاري مراجعة الاسم.....',
+                                            );
                                             Navigator.pop(context);
                                             formKey.currentState!.reset();
                                             cubit.changeBottomSheetState(
                                                 isShow: false);
-
-
                                           }
                                         },
                                         text: 'سجل الان')

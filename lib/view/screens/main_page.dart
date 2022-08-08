@@ -22,7 +22,7 @@ class _MainPageState extends State<MainPage> {
   Future<bool> onWillPop() async {
     return (await showDialog(
           context: context,
-          builder: (context) => AlertDialog(
+          builder: (context) => AlertDialog(backgroundColor: ColorManager.cardColor,elevation: 4.0,
             actionsAlignment: MainAxisAlignment.start,
             title: textCustom(
                 context: context, text: 'هل انت متأكد ؟', fontSize: 20.sp),
@@ -91,7 +91,7 @@ class _MainPageState extends State<MainPage> {
           onTap: (index) {
             //Handle button tap
             if (index == 1) {
-              BlocProvider.of<PeopleCubit>(context).getNames();
+              BlocProvider.of<PeopleCubit>(context).getNamesData();
             }
             setState(() {
               _selectedIndex = index;

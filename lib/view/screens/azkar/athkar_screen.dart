@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hesn_elmuslim/view/widgets/app_bar/app_bar_custom.dart';
 import '../../widgets/component.dart';
 import '../../widgets/tab_bar_custom/tab_bar_custom.dart';
@@ -27,7 +28,7 @@ class _AthkarScreenState extends State<AthkarScreen> {
           },
         ),
         body:  Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding:  EdgeInsets.all(8.0.sp),
           child: Column(
             children: [
               TabBarCustom(

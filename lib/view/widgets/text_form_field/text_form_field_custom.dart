@@ -91,38 +91,38 @@ maxLines:maxLines??1,
         isDense: true,
         //floatingLabelBehavior: FloatingLabelBehavior.auto,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(15.r),
           borderSide:  BorderSide(
             color: ColorManager.grey,
-            width: 2,
+            width: 2.w,
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(15.r),
           borderSide: BorderSide(
             color: ColorManager.grey,
           ),
         ),
         contentPadding:  EdgeInsets.symmetric(
-          vertical: padding!,
-          horizontal: 16,
+          vertical: padding!.h,
+          horizontal: 16.w,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-          borderSide:  const BorderSide(
+          borderRadius: BorderRadius.circular(15.r),
+          borderSide:   BorderSide(
             color: ColorManager.primary,
-            width: 2,
+            width: 2.w,
           ),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-          borderSide: const BorderSide(
+          borderRadius: BorderRadius.circular(15.r),
+          borderSide:  BorderSide(
             color: Colors.red,
-            width: 1.5,
+            width: 1.5.w,
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(15.r),
           borderSide: const BorderSide(
             color: Colors.red,
           ),

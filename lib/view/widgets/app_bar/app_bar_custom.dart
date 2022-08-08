@@ -28,10 +28,10 @@ appBarCustom(
       statusBarColor: Colors.transparent,
     ),
     leading:isNull? Container(
-      margin: const EdgeInsets.all( 4),
+      margin:  EdgeInsets.all( 4.sp),
       padding: EdgeInsets.all(6.sp),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(8.r),
         color: ColorManager.cardColor  ,
         boxShadow: [
           BoxShadow(

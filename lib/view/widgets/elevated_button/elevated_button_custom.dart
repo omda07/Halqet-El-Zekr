@@ -40,7 +40,7 @@ final Color? borderColor;
       },
       style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius!),
+            borderRadius: BorderRadius.circular(radius!.r),
             side:  BorderSide(color:borderColor?? ColorManager.swatch),
           ),
           elevation: elevation,

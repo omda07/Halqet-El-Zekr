@@ -37,7 +37,7 @@ class QiblahCompassState extends State<QiblahCompass> {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      padding: const EdgeInsets.all(8.0),
+      padding:  EdgeInsets.all(8.0.sp),
       child: StreamBuilder(
         stream: stream,
         builder: (context, AsyncSnapshot<LocationStatus> snapshot) {
@@ -104,7 +104,7 @@ class QiblahCompassWidget extends StatelessWidget {
   final _needleSvg = SvgPicture.asset(
     'assets/needle.svg',
     fit: BoxFit.contain,
-    height: 300,
+    height: 300.h,
     alignment: Alignment.center,
   );
 
@@ -147,7 +147,7 @@ class QiblahCompassWidget extends StatelessWidget {
                   fontWeight: FontWeight.bold),
             ),
             Positioned(
-              top: 18,
+              top: 18.h,
               child: textCustom(
                   context: context,
                   text: "${qiblahDirection.direction.toStringAsFixed(0)}°",

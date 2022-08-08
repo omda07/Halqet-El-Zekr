@@ -41,13 +41,13 @@ class DuaaDetailsScreen extends StatelessWidget {
                   return Container(
                     width: double.infinity,
                     margin:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 16,
+                         EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
+                    padding:  EdgeInsets.symmetric(
+                      horizontal: 16.w,
+                      vertical: 16.h,
                     ),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16.0),
+                      borderRadius: BorderRadius.circular(16.0.r),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey[200]!,
@@ -62,7 +62,7 @@ class DuaaDetailsScreen extends StatelessWidget {
                         textCustom(
                           context: context,
                           text: model.zekr!,
-                          fontSize: 20,
+                          fontSize: 20.sp,
                         ),
                         const Divider(),
                         SizedBox(

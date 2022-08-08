@@ -2,12 +2,11 @@ import 'dart:convert';
 import 'package:adhan/adhan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_share/flutter_share.dart';
 import 'package:hesn_elmuslim/cubit/home/home_state.dart';
 import 'package:hesn_elmuslim/model/evening/azkar_evening_model.dart';
 import 'package:hesn_elmuslim/model/morning/azkar_morning_model.dart';
-import 'package:hesn_elmuslim/model/tasbeh/tasbeh_model.dart';
 import 'package:location/location.dart';
+import 'package:share_plus/share_plus.dart';
 
 class HomeCubit extends Cubit<HomeStates> {
   HomeCubit() : super(InitialHomeState());
@@ -18,7 +17,6 @@ class HomeCubit extends Cubit<HomeStates> {
 
   void changeNav(int index) {
     selectedIndex = index;
-    print(selectedIndex);
     emit(BottomNavBar());
   }
 
@@ -29,13 +27,15 @@ class HomeCubit extends Cubit<HomeStates> {
     'أن تكون خاليا من الديون وفائض عن الحاجة أى يكون المال مدخر. كما أن حلى المرأة الذى تستخدمه للزينة ليس عليه زكاة، لأنها تتزين به، طالما أن النية منه الزينة، أما إذا كان الغرض منه الإدخار فعليها الزكاة، لكنها قد تخرج عليه صدقة من باب الورع.'
   ];
 
-  Future<void> share(String link, String title, String text) async {
-    await FlutterShare.share(
-        title: 'title',
-        text: text,
-        linkUrl: link,
-        chooserTitle: 'Example Chooser Title');
-    emit(Share());
+  Future<void> share(String text, String title, String link) async {
+   await Share.share(text,subject: title,);
+
+    // await FlutterShare.share(
+    //     title: 'title',
+    //     text: text,
+    //     linkUrl: link,
+    //     chooserTitle: 'Example Chooser Title');
+    emit(ShareSuccess());
   }
 
   AzkarMoriningModel? azkarMoriningModel;
@@ -84,7 +84,6 @@ class HomeCubit extends Cubit<HomeStates> {
 
       azkarEveningModel = AzkarEveningModel.fromJson(mJson);
 
-      print(azkarEveningModel!.evening);
       emit(GetAzkarEveningSuccess());
     } catch (e) {
       print(e);
@@ -92,47 +91,6 @@ class HomeCubit extends Cubit<HomeStates> {
     }
   }
 
-  TasbehModel? tasbehModel;
-
-  getTasbeh({required BuildContext context}) async {
-    try {
-      emit(GetTasbehLoading());
-      var response = await DefaultAssetBundle.of(context)
-          .loadString('assets/json/tasbeh.json');
-      // now we have response as String from local json or and API request...
-      var mJson = json.decode(response);
-      // now we have a json...
-
-      tasbehModel = TasbehModel.fromJson(mJson);
-
-      print(tasbehModel!.tasbeh);
-      emit(GetTasbehSuccess());
-    } catch (e) {
-      print(e);
-      emit(GetTasbehError(e.toString()));
-    }
-  }
-
-  int count = 0;
-  double percent = 0;
-
-  incrementCounter({required int counter}) {
-    late double constNumber = 1 / counter;
-    if (count < counter) {
-      count++;
-      percent = percent + constNumber;
-      emit(GetPercent());
-      //percent=percent2;
-    } else {
-      return null;
-    }
-  }
-
-  refresh() {
-    count = 0;
-    percent = 0.0;
-    emit(Refresh());
-  }
 
   double moneyResult = 0.0;
   double goldResult = 0.0;
@@ -141,8 +99,7 @@ bool checkZakat = false;
     goldResult = (gold *85) *(2.5/100);
     moneyResult = money * (2.5 / 100);
     if(goldResult <= moneyResult){
-      print(goldResult);
-      print(moneyResult);
+
       checkZakat = true;
     }else{
        moneyResult = 0.0;
@@ -187,7 +144,6 @@ bool checkZakat = false;
 
     params!.madhab = Madhab.shafi;
     prayerTimes = PrayerTimes.today(myCoordinates!, params!);
-    print(locationData);
     emit(GetLocation());
   }
 

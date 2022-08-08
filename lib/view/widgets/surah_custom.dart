@@ -19,7 +19,7 @@ class SurahCustom extends StatelessWidget {
             image: 'corner',
             image1: 'corner3'),
         widget ??
-        textCustom(
+        textCustom( height: 1.5.h,
           textAlign: TextAlign.center,
           fontSize: 20.sp,
           text: text!,

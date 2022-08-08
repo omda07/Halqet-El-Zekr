@@ -2,11 +2,11 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hesn_elmuslim/cubit/home/home_cubit.dart';
-import 'package:hesn_elmuslim/cubit/home/home_state.dart';
+import 'package:hesn_elmuslim/cubit/tasbih/tasbih_state.dart';
 import 'package:hesn_elmuslim/view/screens/tasbih/selected_tasbih_screen.dart';
 import 'package:hesn_elmuslim/view/widgets/list_item.dart';
 
+import '../../../cubit/tasbih/tasbih_cubit.dart';
 import '../../resources/color_manager.dart';
 import '../../widgets/app_bar/app_bar_custom.dart';
 import '../../widgets/text_custom/text_custom.dart';
@@ -27,11 +27,11 @@ class TasbehScreen extends StatelessWidget {
         },
       ),
       body: BlocProvider(
-        create: (context) => HomeCubit()..getTasbeh(context: context),
-        child: BlocConsumer<HomeCubit, HomeStates>(
+        create: (context) => TasbihCubit()..getTasbeh(context: context),
+        child: BlocConsumer<TasbihCubit, TasbihStates>(
           listener: (context, state) {},
           builder: (context, state) {
-            var cubit = HomeCubit.get(context);
+            var cubit = TasbihCubit.get(context);
             return ConditionalBuilder(
               condition: cubit.tasbehModel != null,
               builder: (context) {

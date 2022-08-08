@@ -37,8 +37,8 @@ class SelectedTasbehScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 8),
+                        padding:  EdgeInsets.symmetric(
+                            horizontal: 16.w, vertical: 8.h),
                         child: textCustom(
                           context: context,
                           text: '${cubit.tasbehModel!.tasbeh![i].content}',
@@ -47,8 +47,8 @@ class SelectedTasbehScreen extends StatelessWidget {
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      const SizedBox(
-                        height: 32,
+                       SizedBox(
+                        height: 32.h,
                       ),
                       GestureDetector(
                         onTap: () {
@@ -63,8 +63,8 @@ class SelectedTasbehScreen extends StatelessWidget {
                               '${cubit.tasbehModel!.tasbeh![i].count}'),
                         ),
                       ),
-                      const SizedBox(
-                        height: 35,
+                       SizedBox(
+                        height: 35.h,
                       ),
                       InkWell(
                         onTap: () {
@@ -72,9 +72,9 @@ class SelectedTasbehScreen extends StatelessWidget {
                           CacheHelper.removeData(key: '$i');
                         },
                         child: Container(
-                          padding: const EdgeInsets.all(10),
+                          padding:  EdgeInsets.all(10.sp),
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(10.r),
                               color: ColorManager.cardColor),
                           child: const Icon(
                             Icons.refresh,
@@ -82,8 +82,8 @@ class SelectedTasbehScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 20,
+                       SizedBox(
+                        height: 20.h,
                       ),
                       const Divider(),
                       const SizedBox(

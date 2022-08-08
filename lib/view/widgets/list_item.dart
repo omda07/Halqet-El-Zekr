@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hesn_elmuslim/cubit/database/local/cache_helper.dart';
-import 'package:hesn_elmuslim/cubit/tasbih/tasbih_cubit.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hesn_elmuslim/view/resources/color_manager.dart';
 import 'package:hesn_elmuslim/view/widgets/text_custom/text_custom.dart';
 
@@ -16,13 +15,13 @@ class ListItemCustom extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
+      margin:  EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
+      padding:  EdgeInsets.symmetric(
+        horizontal: 16.w,
         vertical: 0,
       ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16.0),
+        borderRadius: BorderRadius.circular(16.0.r),
         boxShadow: [
           BoxShadow(
             color: Colors.grey[200]!,
@@ -44,7 +43,7 @@ class ListItemCustom extends StatelessWidget {
           );
         },
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding:  EdgeInsets.all(8.0.sp),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -57,7 +56,7 @@ class ListItemCustom extends StatelessWidget {
                   textAlign: TextAlign.start,
                   context: context,
                   text: text,
-                  fontSize: 18,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,

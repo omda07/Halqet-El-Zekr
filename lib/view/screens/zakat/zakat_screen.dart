@@ -22,7 +22,7 @@ class ZakatScreen extends StatelessWidget {
     return Scaffold(
       appBar: appBarCustom(
           context: context,
-          leading: 'حساب الزكاة',
+          leading: 'حساب زكاة المال',
           onPressed: () {
             Navigator.pop(context);
           }),
@@ -38,8 +38,8 @@ class ZakatScreen extends StatelessWidget {
                 children: [
                   Image.asset(
                     'assets/images/money-bag.png',
-                    width: 90,
-                    height: 90,
+                    width: 90.w,
+                    height: 90.h,
                   ),
                   SizedBox(
                     height: 30.h,

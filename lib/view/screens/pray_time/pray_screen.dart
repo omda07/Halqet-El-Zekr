@@ -47,7 +47,7 @@ class PrayTimeScreen extends StatelessWidget {
                         AnalogClock(
                           height: 200.h,
                           decoration: const BoxDecoration(
-                              // border: Border.all(width: 2.0, color: Colors.black),
+
                               color: ColorManager.cardColor,
                               shape: BoxShape.circle),
                           width: 200.0.w,
@@ -129,12 +129,12 @@ class PrayTimeScreen extends StatelessWidget {
       margin: EdgeInsets.only(
         bottom: 10.h,
       ),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 12,
-        vertical: 10,
+      padding:  EdgeInsets.symmetric(
+        horizontal: 12.w,
+        vertical: 10.h,
       ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16.0),
+        borderRadius: BorderRadius.circular(16.0.r),
         boxShadow: [
           BoxShadow(
             color: Colors.grey[100]!,
@@ -151,13 +151,13 @@ class PrayTimeScreen extends StatelessWidget {
             height: 0.0,
             text: text,
             context: context,
-            fontSize: 24,
+            fontSize: 24.sp,
           ),
           textCustom(
             height: 0.0,
             text: time,
             context: context,
-            fontSize: 24,
+            fontSize: 24.sp,
           ),
 
         ],

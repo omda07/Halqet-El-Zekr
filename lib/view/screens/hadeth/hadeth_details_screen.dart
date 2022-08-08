@@ -33,8 +33,7 @@ class HadethDetailsScreen extends StatelessWidget {
           return scaffoldCustom(
             appBarCustom: appBarCustom(
                 context: context,
-                leading:
-                    '$name ${cubit.hadethDetailsModel != null ? cubit.hadethDetailsModel!.meta!.currentPage! : ''}',
+                leading: name,
                 onPressed: () {
                   Navigator.pop(context);
                 }),
@@ -48,7 +47,7 @@ class HadethDetailsScreen extends StatelessWidget {
                     itemCount: cubit.hadethDetailsModel!.data!.length,
 // itemExtent: 100.0,
                     itemBuilder: (BuildContext context, int index) => Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8.0.sp),
+                      padding: EdgeInsets.symmetric(vertical: 8.0.h),
                       child: Column(
                         textDirection: TextDirection.rtl,
                         children: [
@@ -106,47 +105,59 @@ class HadethDetailsScreen extends StatelessWidget {
             ),
             floatingActionButton: cubit.hadethDetailsModel != null
                 ? Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                FloatingActionButton(
-                  key: Key('next'),
-                  onPressed: int.parse(
-                      cubit.hadethDetailsModel!.meta!.currentPage!) <
-                      cubit.hadethDetailsModel!.meta!.lastPage!
-                      ? () {
-                    print(cubit.hadethDetailsModel!.meta!.currentPage!);
-                    cubit.getHadethDetails(
-                        id: int.parse(id),
-                        page: int.parse(cubit.hadethDetailsModel!.meta!
-                            .currentPage!) +
-                            1);
-                    // page =int.parse(cubit.hadethDetailsModel!.meta!.currentPage!) ;
-                    print(page);
-                    print(cubit.hadethDetailsModel!.meta!.currentPage!);
-                  }
-                      : null,
-                  child: textCustom(text: 'التالي', context: context),
-                ),
-                FloatingActionButton(key: Key('forward'),
-                  onPressed: int.parse(
-                      cubit.hadethDetailsModel!.meta!.currentPage!) >
-                     1
-                      ? () {
-                    print(cubit.hadethDetailsModel!.meta!.currentPage!);
-                    cubit.getHadethDetails(
-                        id: int.parse(id),
-                        page: int.parse(cubit.hadethDetailsModel!.meta!
-                            .currentPage!) -
-                            1);
-                    // page =int.parse(cubit.hadethDetailsModel!.meta!.currentPage!) ;
-                    print(page);
-                    print(cubit.hadethDetailsModel!.meta!.currentPage!);
-                  }
-                      : null,
-                  child: textCustom(text: 'السابق', context: context),
-                )
-              ],
-            )
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      FloatingActionButton(
+                        key: const Key('next'),
+                        onPressed: int.parse(cubit
+                                    .hadethDetailsModel!.meta!.currentPage!) <
+                                cubit.hadethDetailsModel!.meta!.lastPage!
+                            ? () {
+
+                                cubit.getHadethDetails(
+                                    id: int.parse(id),
+                                    page: int.parse(cubit.hadethDetailsModel!
+                                            .meta!.currentPage!) +
+                                        1);
+
+                              }
+                            : null,
+                        child: textCustom(text: 'التالي', context: context),
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 6.w),
+                        decoration: BoxDecoration(
+                          color: ColorManager.cardColor,
+                          borderRadius: BorderRadius.circular(15.r),
+                          border: Border.all(color: ColorManager.primary),
+                        ),
+                        child: textCustom(
+                            height: 0.0,
+                            text:
+                                '${cubit.hadethDetailsModel != null ? cubit.hadethDetailsModel!.meta!.currentPage! : ''} / ${cubit.hadethDetailsModel!.meta!.lastPage}',
+                            context: context,
+                            fontSize: 20.sp),
+                      ),
+                      FloatingActionButton(
+                        key: const Key('forward'),
+                        onPressed: int.parse(cubit
+                                    .hadethDetailsModel!.meta!.currentPage!) >
+                                1
+                            ? () {
+
+                                cubit.getHadethDetails(
+                                    id: int.parse(id),
+                                    page: int.parse(cubit.hadethDetailsModel!
+                                            .meta!.currentPage!) -
+                                        1);
+
+                              }
+                            : null,
+                        child: textCustom(text: 'السابق', context: context),
+                      )
+                    ],
+                  )
                 : null,
           );
         },

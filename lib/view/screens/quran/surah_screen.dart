@@ -41,7 +41,7 @@ class SurahScreen extends StatelessWidget {
                     itemCount: cubit.quranSurah!.verses!.length,
                     // itemExtent: 100.0,
                     itemBuilder: (BuildContext context, int index) => Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8.0.sp),
+                      padding: EdgeInsets.symmetric(vertical: 8.0.h),
                       child: Column(
                         textDirection: TextDirection.rtl,
                         children: [

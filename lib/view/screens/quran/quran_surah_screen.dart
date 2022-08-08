@@ -36,7 +36,7 @@ class QuranSurahScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: 30.0.sp),
+                    padding:  EdgeInsets.symmetric(horizontal: 30.0.w),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -66,9 +66,9 @@ class QuranSurahScreen extends StatelessWidget {
                         itemBuilder: (BuildContext context, int index) =>
                             Container(
                               // width: double.infinity,
-                              margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16,
+                              margin:  EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
+                              padding:  EdgeInsets.symmetric(
+                                horizontal: 16.w,
                                 vertical: 0,
                               ),
                               decoration: BoxDecoration(
@@ -96,7 +96,7 @@ class QuranSurahScreen extends StatelessWidget {
                                           ['transliteration'],
                                       color: ColorManager.grey2),
                                   trailing: SizedBox(
-                                    width: 100,
+                                    width: 100.w,
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       crossAxisAlignment:
@@ -120,8 +120,8 @@ class QuranSurahScreen extends StatelessWidget {
                                               : const AssetImage(
                                                   'assets/images/madena.png',
                                                 ),
-                                          width: 30,
-                                          height: 50,
+                                          width: 30.w,
+                                          height: 50.h,
                                         )
                                       ],
                                     ),

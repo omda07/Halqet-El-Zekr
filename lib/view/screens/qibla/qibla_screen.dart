@@ -3,6 +3,7 @@ import 'package:flutter_qiblah/flutter_qiblah.dart';
 import 'package:hesn_elmuslim/view/screens/qibla/qiblah_compass.dart';
 import 'package:hesn_elmuslim/view/widgets/app_bar/app_bar_custom.dart';
 
+import '../../widgets/text_custom/text_custom.dart';
 import 'loading_indicator.dart';
 
 class QiblaScreen extends StatelessWidget {
@@ -22,7 +23,7 @@ class QiblaScreen extends StatelessWidget {
           }
           if (snapshot.hasError) {
             return Center(
-              child: Text("Error: ${snapshot.error.toString()}"),
+              child: textCustom(context:context,text:"Error: ${snapshot.error.toString()}"),
             );
           }
 

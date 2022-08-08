@@ -29,7 +29,7 @@ class HomeScreen extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(20.0),bottomLeft: Radius.circular(20.0)),
+                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(20.0.r),bottomLeft: Radius.circular(20.0.r)),
                     child: SizedBox(
                       width: double.infinity,
                       child: Image.asset(
@@ -93,7 +93,7 @@ class HomeScreen extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
             primary: false,
-            padding: const EdgeInsets.all(20),
+            padding:  EdgeInsets.all(20.sp),
             childAspectRatio: 1.2,
             crossAxisCount: 2,
             children: <Widget>[
@@ -157,9 +157,9 @@ class HomeScreen extends StatelessWidget {
     String? screen,
   }) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      margin:  EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(20.r),
         color: ColorManager.cardColor,
         boxShadow: [
           BoxShadow(
@@ -175,13 +175,13 @@ class HomeScreen extends StatelessWidget {
           Navigator.pushNamed(context, screen!);
         },
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 10),
+          padding:  EdgeInsets.symmetric(vertical: 10.h),
           child: Column(
             children: [
               Image.asset(
                 url,
-                width: 45,
-                height: 45,
+                width: 45.w,
+                height: 45.h,
               ),
               textCustom(
                 height: 0.0,

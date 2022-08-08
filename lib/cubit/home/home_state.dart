@@ -29,7 +29,7 @@ class GetTasbehError extends HomeStates{
 
 class GetPercent extends HomeStates{}
 class Refresh extends HomeStates{}
-class Share extends HomeStates{}
+class ShareSuccess extends HomeStates{}
 class Calculation extends HomeStates{}
 class GetLocation extends HomeStates{}
 class GetPrayer extends HomeStates{}

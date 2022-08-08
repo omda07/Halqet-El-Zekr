@@ -18,16 +18,16 @@ Widget noInternet(context) => BlocConsumer<InternetCubit, InternetStates>(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Lottie.asset('assets/no internet.json',
-                  width: MediaQuery.of(context).size.width / 1, height: 400),
+                  width: MediaQuery.of(context).size.width / 1, height: 400.h),
               textCustom(context:context,
                   text: 'تأكد من موجود انترنت',
                   textAlign: TextAlign.center,
                   fontSize: 22.sp),
-              const SizedBox(
-                height: 40,
+               SizedBox(
+                height: 40.h,
               ),
               SizedBox(
-                width: 160,
+                width: 160.w,
                 child: ElevatedButtonCustom(
                     text: 'أعد المحاولة',
                     onPressed: () {

@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "488015790763",
+    "project_id": "halqet-el-zekr",
+    "storage_bucket": "halqet-el-zekr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488015790763:android:c4539f589c53615b0b2dee",
+        "android_client_info": {
+          "package_name": "com.omda.halqetElZekr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "488015790763-olrabqttnjntfo1t9afkbc9khgfusmcc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRT4IqZPeIt4JMgo2sudJYkJXAS4PkqKQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "488015790763-olrabqttnjntfo1t9afkbc9khgfusmcc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "488015790763-arutii0j8l6i0g0401h8nid0brqouc0t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.omda.hesnElMuslim.hesnElmuslim"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

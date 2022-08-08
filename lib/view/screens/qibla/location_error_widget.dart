@@ -13,16 +13,16 @@ class LocationErrorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const box = SizedBox(height: 32);
+    Widget box = SizedBox(height: 32.h);
     const errorColor = Color(0xffb00020);
 
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          const Icon(
+           Icon(
             Icons.location_off,
-            size: 150,
+            size: 150.sp,
             color: ColorManager.primary,
           ),
           box,

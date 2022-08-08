@@ -238,7 +238,7 @@
       "ddd": 0,
       "ind": 2,
       "ty": 5,
-      "nm": "Network Error",
+      "nm": "",
       "sr": 1,
       "ks": {
         "o": {
@@ -413,7 +413,7 @@
               "s": {
                 "s": 13,
                 "f": "Lato-Bold",
-                "t": "Network Error",
+                "t": "",
                 "j": 0,
                 "tr": 0,
                 "lh": 15.6,

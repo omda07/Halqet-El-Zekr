@@ -2,6 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_offline/flutter_offline.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 import '../../../cubit/cubit For Internet/internet_cubit.dart';
@@ -42,7 +43,7 @@ class Layout extends StatelessWidget {
                     top: 0,
                     left: 0.0,
                     right: 0.0,
-                    height: 32.0,
+                    height: 32.0.h,
                     child: AnimatedContainer(
                       curve: Curves.bounceInOut,
                       duration: const Duration(milliseconds: 200),
@@ -58,10 +59,10 @@ class Layout extends StatelessWidget {
                                 const SizedBox(
                                   width: 8.0,
                                 ),
-                                const SizedBox(
-                                  width: 12.0,
-                                  height: 12.0,
-                                  child:  CircularProgressIndicator(
+                                 SizedBox(
+                                  width: 12.0.w,
+                                  height: 12.0.h,
+                                  child:  const CircularProgressIndicator(
                                     strokeWidth: 2.0,
                                     valueColor:  AlwaysStoppedAnimation<Color>(
                                         Colors.white),

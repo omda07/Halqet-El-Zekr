@@ -28,11 +28,11 @@ class MorningAzkarScreen extends StatelessWidget {
                 itemBuilder: (context, index) => Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15.0, vertical: 10.0),
+                      padding:  EdgeInsets.symmetric(
+                          horizontal: 15.0.w, vertical: 10.0.h),
                       child: Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(20.r),
                             image: const DecorationImage(
                               image: AssetImage(
                                   'assets/images/paperBackground.jpg'),
@@ -48,8 +48,8 @@ class MorningAzkarScreen extends StatelessWidget {
                               ),
                             ]),
                         child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 20, bottom: 10, right: 20, left: 20),
+                          padding:  EdgeInsets.only(
+                              top: 20.h, bottom: 10.h, right: 20.w, left: 20.w),
                           child: Column(
                             children: [
                               textCustom(
@@ -82,7 +82,7 @@ class MorningAzkarScreen extends StatelessWidget {
                                         text:
                                             '${cubit.azkarMoriningModel!.morning![index].count}',
                                         context: context,
-                                        fontSize: 24),
+                                        fontSize: 24.sp),
                                   ),
                                   Expanded(
                                     child: IconButton(

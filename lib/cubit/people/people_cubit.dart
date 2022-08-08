@@ -1,62 +1,76 @@
-
-
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hesn_elmuslim/cubit/people/people_states.dart';
 import 'package:hesn_elmuslim/model/people/people_model.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
-class PeopleCubit extends Cubit<PeopleSates>{
+class PeopleCubit extends Cubit<PeopleSates> {
   PeopleCubit() : super(InitialState());
 
-  static PeopleCubit get(context) =>BlocProvider.of(context);
+  static PeopleCubit get(context) => BlocProvider.of(context);
 
   PeopleModel? peopleModel;
-final client =Supabase.instance.client;
-  Future insertName({required String name,required uid})async{
-    emit(InsertPeopleLoadingState());
-    await client.from('people').insert({
+  List<PeopleModel> names = [];
 
-      'name': name,
-      'uid':uid
-    }).execute().then((value) {
-      print('------------------${value.status}');
-      emit(InsertPeopleSuccessState());
-    }).catchError((onError){
-      print(onError);
-      emit(InsertPeopleErrorState(onError));
-    });
-  }
-
-  Future deleteName({required id})async{
-    emit(DeletePeopleLoadingState());
-    await client.from('people').delete().eq('id', id).execute().then((value) {
-      print('------------------${value.status}');
-      getNames();
-      emit(DeletePeopleSuccessState());
-    }).catchError((onError){
-      print(onError);
-      emit(DeletePeopleErrorState(onError));
-    });
-  }
-
-
-  Future<void> getNames()async{
+  Future<void> getNamesData() async {
     emit(GetPeopleLoadingState());
-client.from('people').select().eq('approved', true).order('created_at').execute().then((value) {
-  print(value.toJson());
+    try {
+       FirebaseFirestore.instance
+          .collection('people')
+          .orderBy('dateTime', descending: true)
+          .where('approved', isEqualTo: true)
+          .snapshots()
+          .listen((event) {
+        // print(event.docs);
+        names = [];
+        if (event.docs.isNotEmpty) {
+          for (var element in event.docs) {
+            // print(element.reference);
+            peopleModel = PeopleModel.fromJson(element.data());
+            names.add(PeopleModel.fromJson(element.data()));
+          }
+        }
 
-  peopleModel = PeopleModel.fromJson( value.toJson());
-  print(peopleModel!.data![0].id);
-  emit(GetPeopleSuccessState(peopleModel!));
-}).catchError((onError){
-  print(onError);
-  emit(GetPeopleErrorState(onError.toString()));
-});
+        emit(GetPeopleSuccessState());
+      });
+    } catch (error) {
+      print(error);
+      emit(GetPeopleErrorState(error.toString()));
+    }
+  }
 
+  void createName({required String name, required uid}) async {
+    emit(InsertPeopleLoadingState());
 
+    await FirebaseFirestore.instance.collection('people').add({
+      'name': name,
+      'uid': uid,
+      'approved': false,
+      'dateTime': DateTime.now()
+    }).then((value) async {
+      await FirebaseFirestore.instance
+          .collection('people')
+          .doc(value.id)
+          .update({"id": value.id});
+      emit(InsertPeopleSuccessState());
+    }).catchError((onError) {
+      emit(InsertPeopleErrorState(onError.toString()));
+    });
+  }
+
+  Future<void> delete({required String id}) {
+    return FirebaseFirestore.instance
+        .collection('people')
+        .doc(id)
+        .delete()
+        .then((value) {
+      emit(DeletePeopleSuccessState());
+    }).catchError((error) {
+      print("Failed to delete user: $error");
+      emit(DeletePeopleErrorState(error.toString()));
+    });
   }
 
   bool isBottomSheetShown = false;
@@ -68,23 +82,21 @@ client.from('people').select().eq('approved', true).order('created_at').execute(
 
     emit(AppChangeBottomSheetState());
   }
+
   String uniqueDeviceId = '';
-   getUniqueDeviceId() async {
 
-
+  getUniqueDeviceId() async {
     var deviceInfo = DeviceInfoPlugin();
 
-    if (Platform.isIOS) { // import 'dart:io'
+    if (Platform.isIOS) {
+      // import 'dart:io'
       var iosDeviceInfo = await deviceInfo.iosInfo;
-      uniqueDeviceId = '${iosDeviceInfo.name}:${iosDeviceInfo
-          .identifierForVendor}'; // unique ID on iOS
+      uniqueDeviceId =
+          '${iosDeviceInfo.name}:${iosDeviceInfo.identifierForVendor}'; // unique ID on iOS
     } else if (Platform.isAndroid) {
       var androidDeviceInfo = await deviceInfo.androidInfo;
-      uniqueDeviceId = '${androidDeviceInfo.model}:${androidDeviceInfo
-          .id}'; // unique ID on Android
+      uniqueDeviceId =
+          '${androidDeviceInfo.model}:${androidDeviceInfo.id}'; // unique ID on Android
     }
-
   }
-
-
 }

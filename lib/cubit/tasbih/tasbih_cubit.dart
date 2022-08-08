@@ -24,7 +24,6 @@ class TasbihCubit extends Cubit<TasbihStates> {
 
       tasbehModel = TasbehModel.fromJson(mJson);
 
-      print(tasbehModel!.tasbeh);
       emit(GetTasbehSuccess());
     } catch (e) {
       print(e);
