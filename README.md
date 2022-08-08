@@ -1,16 +1,7 @@
-# hesn_elmuslim
+# حلقة الذكر
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="https://res.cloudinary.com/lms07/image/upload/v1659971100/cover_ddbzd8.png" align="left" height="450" width="1000" />  
+  <div align="center">  -  </div>  
+  
+## Get it on Google Play Soon
+<a href=""><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" height=60px /></a>
