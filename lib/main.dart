@@ -22,7 +22,6 @@ import 'core/notifications/notification_helper.dart';
 import 'core/utils/theme_manager.dart';
 import 'features/home/presentation/home_cubit/home_cubit.dart';
 import 'features/network/dio_helper.dart';
-import 'features/profile/presentation/cubit/profile_cubit.dart';
 import 'features/quran/presentation/quran_cubit/quran_cubit.dart';
 import 'features/quran/presentation/surah_cubit/surah_cubit.dart';
 import 'features/quran_audio/presentation/controller/aduio_cubit/audio_cubit.dart';
@@ -72,7 +71,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => sl<ProfileCubit>()),
         BlocProvider(create: (context) => HomeCubit()..determinePosition()),
         BlocProvider(create: (context) => AzkarCubit()),
         BlocProvider(create: (context) => DuaaCubit()),
