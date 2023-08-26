@@ -13,12 +13,6 @@ import 'features/hadeth/domain/repositories/hadeeth_repository.dart';
 import 'features/hadeth/presentation/hadeth_cubit/hadeth_cubit.dart';
 import 'features/hadeth/presentation/hadeth_details_cubit/hadeth_details_cubit.dart';
 import 'features/hadeth/presentation/hadeth_info_cubit/hadeth_info_cubit.dart';
-import 'features/profile/data/datasources/profile_datasource.dart';
-import 'features/profile/data/datasources/profile_local_datasource.dart';
-import 'features/profile/data/repositories/profile_repository_impl.dart';
-import 'features/profile/domain/repositories/profile_repository.dart';
-import 'features/profile/domain/usecases/profile_usecase.dart';
-import 'features/profile/presentation/cubit/profile_cubit.dart';
 import 'features/quran/data/datasources/quran_remote_datasource.dart';
 import 'features/quran/data/repositories/quran_repository_impl.dart';
 import 'features/quran/domain/repositories/quran_repository.dart';
@@ -31,12 +25,6 @@ import 'features/quran_audio/domain/repositories/recitations_repository.dart';
 import 'features/quran_audio/domain/usecases/recitations_usecase.dart';
 import 'features/quran_audio/presentation/controller/aduio_cubit/audio_cubit.dart';
 import 'features/quran_audio/presentation/controller/recitations_cubit/recitations_cubit.dart';
-
-import 'features/settings/data/datasources/settings_datasource.dart';
-import 'features/settings/data/repositories/settings_repository_impl.dart';
-import 'features/settings/domain/repositories/settings_repository.dart';
-import 'features/settings/domain/usecases/settings_usecase.dart';
-import 'features/settings/presentation/cubit/settings_cubit.dart';
 import 'features/yasser_dousery/data/datasources/yasser_surah_remote_datasource.dart';
 import 'features/yasser_dousery/data/repositories/yasser_surah_repository_impl.dart';
 import 'features/yasser_dousery/domain/repositories/yasser_surah_repository.dart';
@@ -63,8 +51,6 @@ Future<void> init() async {
       () => RecitationsCubit(recitationsUsecase: sl()));
   sl.registerLazySingleton<AudioCubit>(() => AudioCubit(audioUsecase: sl()));
 
-  sl.registerLazySingleton<ProfileCubit>(
-      () => ProfileCubit(profileUsecase: sl()));
 
   sl.registerLazySingleton<QuranAudioCubit>(
       () => QuranAudioCubit(quranAudiosUsecase: sl()));
@@ -82,11 +68,6 @@ Future<void> init() async {
   sl.registerLazySingleton<RecitationsUsecase>(() => RecitationsUsecase(sl()));
   sl.registerLazySingleton<AudioUsecase>(() => AudioUsecase(sl()));
 
-  sl.registerLazySingleton<ProfileUsecase>(() => ProfileUsecase(sl()));
-
-  sl.registerLazySingleton<SettingsCubit>(
-      () => SettingsCubit(settingsUsecase: sl()));
-  sl.registerLazySingleton<SettingsUsecase>(() => SettingsUsecase(sl()));
 
   sl.registerLazySingleton<QuranAudiosUsecase>(() => QuranAudiosUsecase(sl()));
 
@@ -107,16 +88,7 @@ Future<void> init() async {
             networkInfo: sl(),
           ));
 
-  sl.registerLazySingleton<ProfileRepository>(() => ProfileRepositoryImpl(
-        profileLocalDataSource: sl(),
-        profileRemoteDataSource: sl(),
-        networkInfo: sl(),
-      ));
 
-  sl.registerLazySingleton<SettingsRepository>(() => SettingsRepositoryImpl(
-        settingsRemoteDataSource: sl(),
-        networkInfo: sl(),
-      ));
 
   sl.registerLazySingleton<QuranAudiosRepository>(
       () => QuranAudioRepositoryImpl(
@@ -141,20 +113,6 @@ Future<void> init() async {
             apiConsumer: sl(),
           ));
 
-
-  sl.registerLazySingleton<ProfileLocalDataSource>(
-      () => ProfileLocalDataSourceImpl(sharedPreferences: sl()));
-
-  sl.registerLazySingleton<ProfileRemoteDataSource>(
-      () => ProfileRemoteDataSourceImpl(
-            apiConsumer: sl(),
-          ));
-
-
-  sl.registerLazySingleton<SettingsRemoteDataSource>(
-      () => SettingsRemoteDataSourceImpl(
-            apiConsumer: sl(),
-          ));
 
   sl.registerLazySingleton<QuranAudioRemoteDataSource>(
       () => QuranAudioRemoteDataSourceImpl(
