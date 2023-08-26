@@ -1,40 +1,66 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hesn_elmuslim/cubit/database/network/dio_helper.dart';
-import 'package:hesn_elmuslim/cubit/hadeth/hadeth_cubit.dart';
-import 'package:hesn_elmuslim/cubit/home/home_cubit.dart';
-import 'package:hesn_elmuslim/cubit/quran/quran_cubit.dart';
-import 'package:hesn_elmuslim/cubit/tasbih/tasbih_cubit.dart';
-import 'package:hesn_elmuslim/view/screens/azkar/athkar_screen.dart';
-import 'package:hesn_elmuslim/view/screens/duaa/duaa_screen.dart';
-import 'package:hesn_elmuslim/view/screens/hadeth/hadeth_screen.dart';
-import 'package:hesn_elmuslim/view/screens/main_page.dart';
-import 'package:hesn_elmuslim/view/screens/pray_time/pray_screen.dart';
-import 'package:hesn_elmuslim/view/screens/qibla/qibla_screen.dart';
-import 'package:hesn_elmuslim/view/screens/quran/quran_surah_screen.dart';
-import 'package:hesn_elmuslim/view/screens/tasbih/tasbih_screen.dart';
-import 'package:hesn_elmuslim/view/screens/zakat/zakat_screen.dart';
-import 'package:hesn_elmuslim/view/styles/theme.dart';
-import 'cubit/cubit For Internet/internet_cubit.dart';
-import 'cubit/database/local/cache_helper.dart';
-import 'cubit/database/network/end_points.dart';
-import 'cubit/people/people_cubit.dart';
-import 'firebase_options.dart';
+import 'package:hesn_elmuslim/core/api/end_points.dart';
+import 'package:hesn_elmuslim/core/general_controllers/font_controller/font_cubit.dart';
+import 'package:hesn_elmuslim/core/utils/routes_manager.dart';
+import 'package:hesn_elmuslim/core/utils/strings_manager.dart';
+import 'package:hesn_elmuslim/features/azkar/presentation/azkar_cubit/azkar_cubit.dart';
+import 'package:hesn_elmuslim/features/duaa/presentation/duaa_cubit/duaa_cubit.dart';
+import 'package:hesn_elmuslim/features/hadeth/presentation/hadeth_cubit/hadeth_cubit.dart';
+import 'package:hesn_elmuslim/features/hadeth/presentation/hadeth_details_cubit/hadeth_details_cubit.dart';
+import 'package:hesn_elmuslim/features/hadeth/presentation/hadeth_info_cubit/hadeth_info_cubit.dart';
+import 'package:hesn_elmuslim/features/pray_time/presentation/pray_time_cubit/pray_time_cubit.dart';
+import 'package:hesn_elmuslim/features/quran/presentation/quran_off/quran_off_cubit.dart';
+import 'package:hesn_elmuslim/features/yasser_dousery/presentation/manager/rooms_cubit/yasser_surah_cubit.dart';
+import 'package:hesn_elmuslim/features/zakat/presentation/zakat_cubit/zakat_cubit.dart';
+import 'package:just_audio_background/just_audio_background.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'core/local/cache_helper.dart';
+import 'core/notifications/notification_helper.dart';
+import 'core/utils/theme_manager.dart';
+import 'features/home/presentation/home_cubit/home_cubit.dart';
+import 'features/network/dio_helper.dart';
+import 'features/profile/presentation/cubit/profile_cubit.dart';
+import 'features/quran/presentation/quran_cubit/quran_cubit.dart';
+import 'features/quran/presentation/surah_cubit/surah_cubit.dart';
+import 'features/quran_audio/presentation/controller/aduio_cubit/audio_cubit.dart';
+import 'features/quran_audio/presentation/controller/recitations_cubit/recitations_cubit.dart';
+import 'features/tasbih/presentation/tasbih_cubit/tasbih_cubit.dart';
+import 'injection_container.dart';
+import 'injection_container.dart' as di;
 import 'observer.dart';
-import 'view/screens/quran/quran_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await DioHelper.init(baseUrl);
+  await DioHelper.init(EndPoints.getHadeeth);
+  await di.init();
   await CacheHelper.init();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+
+
+  await JustAudioBackground.init(
+    androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
+    androidNotificationChannelName: 'Audio playback',
+    androidNotificationOngoing: true,
+    androidNotificationIcon: 'mipmap/launcher_icon',
+
   );
+
+  await NotificationController.initializeLocalNotifications();
+
+
+  //Remove this method to stop OneSignal Debugging
+  OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
+// Your ID if you used OnSignal
+  OneSignal.shared.setAppId("");
+
+  OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
+    debugPrint("Accepted permission: $accepted");
+  });
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
   Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }
@@ -42,37 +68,40 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => InternetCubit()),
-        BlocProvider(create: (context) => HomeCubit()),
-        BlocProvider(create: (context) => QuranCubit()),
-        BlocProvider(create: (context) => PeopleCubit()),
-        BlocProvider(create: (context) => HadethCubit()),
+        BlocProvider(create: (context) => sl<ProfileCubit>()),
+        BlocProvider(create: (context) => HomeCubit()..determinePosition()),
+        BlocProvider(create: (context) => AzkarCubit()),
+        BlocProvider(create: (context) => DuaaCubit()),
+        BlocProvider(create: (context) => sl<HadethCubit>()),
+        BlocProvider(create: (context) => sl<HadethDetailsCubit>()),
+        BlocProvider(create: (context) => sl<HadethInfoCubit>()),
+        BlocProvider(create: (context) => PrayTimeCubit()..determinePosition()),
+        BlocProvider(create: (context) => ZakatCubit()),
+        BlocProvider(create: (context) => QuranOffCubit()),
         BlocProvider(create: (context) => TasbihCubit()),
+        BlocProvider(create: (context) => sl<QuranCubit>()),
+        BlocProvider(create: (context) => sl<SurahCubit>()),
+        BlocProvider(create: (context) => sl<RecitationsCubit>()),
+        BlocProvider(create: (context) => sl<AudioCubit>()),
+        BlocProvider(create: (context) => sl<QuranAudioCubit>()),
+        BlocProvider(create: (context) => TasbihCubit()),
+        BlocProvider(create: (context) => FontCubit()..getFontSize()),
       ],
       child: ScreenUtilInit(
-        designSize: const Size(360, 690),
+        designSize: const Size(400, 860),
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (BuildContext context, widgets) => MaterialApp(
-          title: 'حلقة الذكر',
+          title: AppStrings.appName,
 
-          routes: {
-            'azkarScreen': (BuildContext context) => const AthkarScreen(),
-            'tasbehScreen': (BuildContext context) => const TasbehScreen(),
-            'DuaaScreen': (BuildContext context) => const DuaaScreen(),
-            'zakat': (BuildContext context) => ZakatScreen(),
-            'qibla': (BuildContext context) => QiblaScreen(),
-            'pray': (BuildContext context) => const PrayTimeScreen(),
-            'quran': (BuildContext context) => const QuranSurahScreen(),
-            'quranOff': (BuildContext context) => QuranScreen(),
-            'hadeth': (BuildContext context) => const HadethCategoriesScreen(),
-          },
+          routes: RoutesMap.routesMap(),
           builder: (context, widget) {
+            // DynamicLinksHelper().initDynamicLink(context);
+
             return MediaQuery(
               //Setting font does not change with system font size
               data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
@@ -86,8 +115,8 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: getApplicationTheme(),
           //Here The Theme.
-
-          home: const MainPage(),
+          initialRoute: Routes.splashRoute,
+          // home: const UpdateApp(),
         ),
       ),
     );
