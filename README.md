@@ -1,6 +1,6 @@
 # حلقة الذكر
 
-<img src="https://res.cloudinary.com/lms07/image/upload/v1659971100/cover_ddbzd8.png" align="left" height="450" width="1000" />  
+<img src="https://res.cloudinary.com/halqetelzekr/image/upload/v1693061627/9018038f-c6bc-4156-9cd9-05c170b67043_yhteae.jpg" align="left" height="450" width="1000" />  
   <div align="center">  -  </div>  
   
 ## Get it on Google Play Soon
