@@ -77,7 +77,7 @@ class _MainPageState extends State<MainPage> {
     });
 
 // NOTE: Replace with your own app ID from https://www.onesignal.com
-    await OneSignal.shared.setAppId("f8f5bd7b-1ab0-4c17-a509-5b843cd4ed49");
+    await OneSignal.shared.setAppId("");
   }
 
   final _screens = [
